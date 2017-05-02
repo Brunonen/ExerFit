@@ -4,8 +4,10 @@ package com.example.bruno.exerfit;
  * Created by bruno on 01/05/2017.
  */
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteDatabaseLockedException;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class SQLWrapper extends SQLiteOpenHelper {
@@ -164,5 +166,84 @@ public class SQLWrapper extends SQLiteOpenHelper {
         //db.execSQL("DROP TABLE IF EXISTS " + TABLE_SHOPS);
         // Creating tables again
         //onCreate(db);
+    }
+
+    public void addCategory(Category category){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(CATEGORY_DESCRIPTION, category.getDescription());
+        db.insert(TABLE_CATEGORY, null, values);
+        db.close();
+    }
+
+    public void addLocation(Location location){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(LOCATION_DESCRIPTION, location.getDescription());
+        db.insert(TABLE_LOCATION, null, values);
+        db.close();
+    }
+
+    public void addType(Type type){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(TYPE_DESCRIPTION, type.getDescription());
+        db.insert(TABLE_TYPE, null, values);
+        db.close();
+    }
+
+    public void addExercise(Exercise exercise){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(EXERCISE_NAME, exercise.getName());
+        values.put(EXERCISE_DESCRIPTION, exercise.getDescription());
+        values.put(EXERCISE_INTENSITY, exercise.getIntensity());
+        values.put(EXERCISE_CATEGORY, exercise.getCategory().getCategoryID());
+        values.put(EXERCISE_LOCATION, exercise.getLocation().getLocationID());
+        values.put(EXERCISE_DEFAULT_REPS, exercise.getDefaultReps());
+        values.put(EXERCISE_DEFAULT_WEIGHT_KG, exercise.getDefaultWeightKG());
+        values.put(EXERCISE_DEFAULT_WEIGHT_LBS, exercise.getDefaultWeightLBS());
+        values.put(EXERCISE_DEFAULT_DISTANCE_M, exercise.getDefaultDistanceM());
+        db.insert(TABLE_EXERCISES, null, values);
+
+        db.close();
+    }
+
+    public void addWorkout(Workout workout){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(WORKOUTS_NAME, workout.getName());
+        values.put(WORKOUTS_Type, workout.getType().getTypeID());
+        values.put(WORKOUTS_LOCATION, workout.getLocation().getLocationID());
+        values.put(WORKOUTS_SETS, workout.getSets());
+        values.put(WORKOUTS_REST_BETWEEN_SETS, workout.getRestBetweenSets());
+        values.put(WORKOUTS_REST_BETWEEN_EXERCISES, workout.getRestBetweenExercises());
+        db.insert(TABLE_WORKOUTS, null, values);
+
+        db.close();
+    }
+
+    public void addWorkoutXExercise(Workout_X_Exercise wkXe){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(W_X_E_WORKOUT_ID, wkXe.getWorkout().getWorkoutID());
+        values.put(W_X_E_EXERCISE_ID, wkXe.getExercise().getExerciseID());
+        values.put(W_X_E_CUSTOM_REPS, wkXe.getCustomReps());
+        values.put(W_X_E_CUSTOM_WEIGHT_KG, wkXe.getCustomWeightKG());
+        values.put(W_X_E_CUSTOM_WEIGHT_LBS, wkXe.getCustomWeightLBS());
+        values.put(W_X_E_CUSTOM_DISTANCE_M, wkXe.getCustomDistanceM());
+        db.insert(TABLE_WORKOUT_X_EXERCISES, null, values);
+
+        db.close();
+    }
+
+    public void addSchedule(Schedule schedule){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(SCHEDULE_WORKOUT_ID, schedule.getWorkout().getWorkoutID());
+        values.put(SCHEDULE_DAY_OF_THE_WEEK, schedule.getDayOfTheWeek());
+        db.insert(TABLE_SCHEDULE, null, values);
+
+        db.close();
     }
 }
