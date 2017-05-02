@@ -34,9 +34,7 @@ public class DBDefaultFiller {
         sqlWrapper.addType(new Type(0, "Thighs"));
         sqlWrapper.addType(new Type(0, "Calves"));
         sqlWrapper.addType(new Type(0, "Abs"));
-
-
-
+        sqlWrapper.addType(new Type(0, "Glutes"));
 
     }
 
