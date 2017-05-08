@@ -1,4 +1,4 @@
-package com.example.bruno.exerfit;
+package com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.DTO;
 
 /**
  * Created by bruno on 02/05/2017.
