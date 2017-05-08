@@ -158,6 +158,12 @@ public class SQLWrapper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void deleteAllCategories(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM "+ TABLE_CATEGORY);
+        db.close();
+    }
+
     public void addLocation(Location location){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -166,11 +172,23 @@ public class SQLWrapper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void deleteAllLocations(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM "+ TABLE_LOCATION);
+        db.close();
+    }
+
     public void addType(Type type){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(TYPE_DESCRIPTION, type.getDescription());
         db.insert(TABLE_TYPE, null, values);
+        db.close();
+    }
+
+    public void deleteAllTypes(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM "+ TABLE_TYPE);
         db.close();
     }
 
@@ -191,6 +209,12 @@ public class SQLWrapper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void deleteAllExercises(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM "+ TABLE_EXERCISES);
+        db.close();
+    }
+
     public void addWorkout(Workout workout){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -202,6 +226,12 @@ public class SQLWrapper extends SQLiteOpenHelper {
         values.put(WORKOUTS_REST_BETWEEN_EXERCISES, workout.getRestBetweenExercises());
         db.insert(TABLE_WORKOUTS, null, values);
 
+        db.close();
+    }
+
+    public void deleteAllWorkouts(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM "+ TABLE_WORKOUTS);
         db.close();
     }
 
@@ -219,6 +249,12 @@ public class SQLWrapper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void deleteAllWokroutXExercisesEntries(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM "+ TABLE_WORKOUT_X_EXERCISES);
+        db.close();
+    }
+
     public void addSchedule(Schedule schedule){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -226,6 +262,12 @@ public class SQLWrapper extends SQLiteOpenHelper {
         values.put(SCHEDULE_DAY_OF_THE_WEEK, schedule.getDayOfTheWeek());
         db.insert(TABLE_SCHEDULE, null, values);
 
+        db.close();
+    }
+
+    public void deleteAllSchedules(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM "+ TABLE_SCHEDULE);
         db.close();
     }
 
@@ -305,5 +347,43 @@ public class SQLWrapper extends SQLiteOpenHelper {
         return location;
     }
 
+
+    public List<Type> getAllTypes(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<Type> typeList = new ArrayList<Type>();
+        String sqlSelect = "SELECT * FROM " + TABLE_TYPE;
+        Cursor cursor = db.rawQuery(sqlSelect, null);
+        if(cursor.moveToFirst()){
+            do{
+                typeList.add(new Type(Integer.parseInt(cursor.getString(0)), cursor.getString(1)));
+            }while(cursor.moveToNext());
+        }
+
+        return typeList;
+    }
+
+    public Type getTypeByID(int typeID){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Type type = new Type();
+        String sqlSelect = "SELECT * FROM " + TABLE_TYPE + " WHERE " + TYPE_ID + " = " + typeID;
+        Cursor cursor = db.rawQuery(sqlSelect, null);
+        if(cursor.moveToFirst()){
+
+            return new Type(Integer.parseInt(cursor.getString(0)), cursor.getString(1));
+        }
+        return type;
+    }
+
+    public Type getTypeByDescirption(String typeDesc){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Type type = new Type();
+        String sqlSelect = "SELECT * FROM " + TABLE_TYPE + " WHERE " + TYPE_DESCRIPTION + " = " + typeDesc;
+        Cursor cursor = db.rawQuery(sqlSelect, null);
+        if(cursor.moveToFirst()){
+
+            return new Type(Integer.parseInt(cursor.getString(0)), cursor.getString(1));
+        }
+        return type;
+    }
 
 }

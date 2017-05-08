@@ -40,11 +40,23 @@ public class WorkoutScreen extends AppCompatActivity {
         DBDefaultFiller db = new DBDefaultFiller(this);
         db.fillDataBaseWithDefaultData();
 
-        List<Category> catList = sqlWrapper.getAllCategories();
+        /*List<Category> catList = sqlWrapper.getAllCategories();
 
         for(Category cat : catList) {
-            System.out.println("ID: " + cat.getCategoryID() + "  \nDESC: " + cat.getDescription());
+            System.out.println("ID: " + cat.getCategoryID() + "  DESC: " + cat.getDescription());
         }
+
+        List<Location> locList = sqlWrapper.getAllLocations();
+
+        for(Location loc : locList) {
+            System.out.println("ID: " + loc.getLocationID() + "  DESC: " + loc.getDescription());
+        }
+
+        List<Type> typeList = sqlWrapper.getAllTypes();
+
+        for(Type type : typeList) {
+            System.out.println("ID: " + type.getTypeID() + "  DESC: " + type.getDescription());
+        }*/
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
