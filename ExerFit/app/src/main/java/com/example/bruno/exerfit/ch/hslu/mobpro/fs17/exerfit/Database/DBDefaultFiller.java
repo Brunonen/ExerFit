@@ -1,6 +1,11 @@
-package com.example.bruno.exerfit;
+package com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.Database;
 
 import android.content.Context;
+
+import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.DTO.Category;
+import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.DTO.Exercise;
+import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.DTO.Location;
+import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.DTO.Type;
 
 /**
  * Created by bruno on 02/05/2017.

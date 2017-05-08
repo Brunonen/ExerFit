@@ -1,4 +1,4 @@
-package com.example.bruno.exerfit;
+package com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.Database;
 
 /**
  * Created by bruno on 01/05/2017.
@@ -6,11 +6,17 @@ package com.example.bruno.exerfit;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabaseLockedException;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.DTO.Category;
+import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.DTO.Exercise;
+import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.DTO.Location;
+import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.DTO.Schedule;
+import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.DTO.Type;
+import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.DTO.Workout;
+import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.DTO.Workout_X_Exercise;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.bruno.exerfit;
+package com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.Screens;
 
 import android.os.Build;
 import android.os.SystemClock;
@@ -9,8 +9,12 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Chronometer;
-import android.widget.ListAdapter;
 import android.widget.ListView;
+
+import com.example.bruno.exerfit.R;
+import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.DTO.Exercise;
+import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.Database.DBDefaultFiller;
+import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.Database.SQLWrapper;
 
 import java.util.List;
 
