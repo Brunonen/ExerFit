@@ -49,7 +49,7 @@ public class DBDefaultFiller {
         sqlWrapper.addType(new Type(0, "Cardio"));
 
         sqlWrapper.addExercise(new Exercise(0, "Crunches", "On the Floor Chrunch up", 3, sqlWrapper.getLocationByID(2), sqlWrapper.getCategoryByID(9), 30, 0,0,0));
-        sqlWrapper.addExercise(new Exercise(0, "Push Ups", "On the Push Up", 3, sqlWrapper.getLocationByID(2), sqlWrapper.getCategoryByID(3), 20, 0,0,0));
+        sqlWrapper.addExercise(new Exercise(0, "Push Ups", "On the Floor Push Up", 3, sqlWrapper.getLocationByID(2), sqlWrapper.getCategoryByID(3), 20, 0,0,0));
     }
 
 

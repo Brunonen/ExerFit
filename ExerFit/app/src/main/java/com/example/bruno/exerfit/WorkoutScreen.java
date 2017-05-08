@@ -57,6 +57,24 @@ public class WorkoutScreen extends AppCompatActivity {
         for(Type type : typeList) {
             System.out.println("ID: " + type.getTypeID() + "  DESC: " + type.getDescription());
         }*/
+
+        List<Exercise> exerciseList = sqlWrapper.getAllExercises();
+
+        for(Exercise exec : exerciseList){
+            String outString = "";
+            outString += "ID: " + exec.getExerciseID();
+            outString += "\nName: " + exec.getName();
+            outString += "\nDESC: " + exec.getDescription();
+            outString += "\nLocation: " + exec.getLocation().getDescription();
+            outString += "\nCategory: " + exec.getCategory().getDescription();
+            outString += "\nIntensity: " + exec.getIntensity();
+            outString += "\nDefaultReps: " + exec.getDefaultReps();
+            outString += "\nDefaultKG: " + exec.getDefaultWeightKG();
+            outString += "\nDEaultLBS: " + exec.getDefaultWeightLBS();
+            outString += "\nDefaultDistanceM: " + exec.getDefaultDistanceM();
+
+            System.out.println(outString);
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)

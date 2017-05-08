@@ -6,6 +6,7 @@ package com.example.bruno.exerfit;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabaseLockedException;
@@ -384,6 +385,23 @@ public class SQLWrapper extends SQLiteOpenHelper {
             return new Type(Integer.parseInt(cursor.getString(0)), cursor.getString(1));
         }
         return type;
+    }
+
+    public List<Exercise> getAllExercises(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<Exercise> exerciseList = new ArrayList<Exercise>();
+        String sqlSelect = "SELECT * FROM " + TABLE_EXERCISES;
+        Cursor cursor = db.rawQuery(sqlSelect, null);
+        if(cursor.moveToFirst()){
+            do{
+                exerciseList.add(new Exercise(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2),
+                        Integer.parseInt(cursor.getString(3)), getLocationByID(Integer.parseInt(cursor.getString(4))),
+                        getCategoryByID(Integer.parseInt(cursor.getString(5))), Integer.parseInt(cursor.getString(6)),
+                        Integer.parseInt(cursor.getString(7)), Integer.parseInt(cursor.getString(8)), Integer.parseInt(cursor.getString(9))));
+            }while(cursor.moveToNext());
+        }
+
+        return exerciseList;
     }
 
 }
