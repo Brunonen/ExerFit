@@ -4,6 +4,7 @@ package com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.Database;
  * Created by bruno on 01/05/2017.
  */
 
+import android.app.IntentService;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -157,12 +158,14 @@ public class SQLWrapper extends SQLiteOpenHelper {
         //onCreate(db);
     }
 
-    public void addCategory(Category category){
+    public int addCategory(Category category){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(CATEGORY_DESCRIPTION, category.getDescription());
-        db.insert(TABLE_CATEGORY, null, values);
+        int id = (int) db.insert(TABLE_CATEGORY, null, values);
         db.close();
+
+        return id;
     }
 
     public void deleteAllCategories(){
@@ -171,12 +174,14 @@ public class SQLWrapper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void addLocation(Location location){
+    public int addLocation(Location location){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(LOCATION_DESCRIPTION, location.getDescription());
-        db.insert(TABLE_LOCATION, null, values);
+        int id = (int) db.insert(TABLE_LOCATION, null, values);
         db.close();
+
+        return id;
     }
 
     public void deleteAllLocations(){
@@ -185,12 +190,14 @@ public class SQLWrapper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void addType(Type type){
+    public int addType(Type type){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(TYPE_DESCRIPTION, type.getDescription());
-        db.insert(TABLE_TYPE, null, values);
+        int id = (int) db.insert(TABLE_TYPE, null, values);
         db.close();
+
+        return id;
     }
 
     public void deleteAllTypes(){
@@ -199,7 +206,7 @@ public class SQLWrapper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void addExercise(Exercise exercise){
+    public int addExercise(Exercise exercise){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(EXERCISE_NAME, exercise.getName());
@@ -211,9 +218,11 @@ public class SQLWrapper extends SQLiteOpenHelper {
         values.put(EXERCISE_DEFAULT_WEIGHT_KG, exercise.getDefaultWeightKG());
         values.put(EXERCISE_DEFAULT_WEIGHT_LBS, exercise.getDefaultWeightLBS());
         values.put(EXERCISE_DEFAULT_DISTANCE_M, exercise.getDefaultDistanceM());
-        db.insert(TABLE_EXERCISES, null, values);
+        int id = (int)db.insert(TABLE_EXERCISES, null, values);
 
         db.close();
+
+        return id;
     }
 
     public void deleteAllExercises(){
@@ -222,7 +231,7 @@ public class SQLWrapper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void addWorkout(Workout workout){
+    public int addWorkout(Workout workout){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(WORKOUTS_NAME, workout.getName());
@@ -231,9 +240,15 @@ public class SQLWrapper extends SQLiteOpenHelper {
         values.put(WORKOUTS_SETS, workout.getSets());
         values.put(WORKOUTS_REST_BETWEEN_SETS, workout.getRestBetweenSets());
         values.put(WORKOUTS_REST_BETWEEN_EXERCISES, workout.getRestBetweenExercises());
-        db.insert(TABLE_WORKOUTS, null, values);
+        int id = (int)db.insert(TABLE_WORKOUTS, null, values);
 
         db.close();
+
+        for(Exercise exec : workout.getExerciseList()){
+            addWorkoutXExercise(new Workout_X_Exercise(getWorkoutByID((int)id), exec, 0 ,0 ,0 ,0));
+        }
+
+        return id;
     }
 
     public void deleteAllWorkouts(){
@@ -242,7 +257,7 @@ public class SQLWrapper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void addWorkoutXExercise(Workout_X_Exercise wkXe){
+    public int addWorkoutXExercise(Workout_X_Exercise wkXe){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(W_X_E_WORKOUT_ID, wkXe.getWorkout().getWorkoutID());
@@ -251,9 +266,11 @@ public class SQLWrapper extends SQLiteOpenHelper {
         values.put(W_X_E_CUSTOM_WEIGHT_KG, wkXe.getCustomWeightKG());
         values.put(W_X_E_CUSTOM_WEIGHT_LBS, wkXe.getCustomWeightLBS());
         values.put(W_X_E_CUSTOM_DISTANCE_M, wkXe.getCustomDistanceM());
-        db.insert(TABLE_WORKOUT_X_EXERCISES, null, values);
+        int id = (int) db.insert(TABLE_WORKOUT_X_EXERCISES, null, values);
 
         db.close();
+
+        return id;
     }
 
     public void deleteAllWokroutXExercisesEntries(){
@@ -262,14 +279,16 @@ public class SQLWrapper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void addSchedule(Schedule schedule){
+    public int addSchedule(Schedule schedule){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(SCHEDULE_WORKOUT_ID, schedule.getWorkout().getWorkoutID());
         values.put(SCHEDULE_DAY_OF_THE_WEEK, schedule.getDayOfTheWeek());
-        db.insert(TABLE_SCHEDULE, null, values);
+        int id = (int) db.insert(TABLE_SCHEDULE, null, values);
 
         db.close();
+
+        return id;
     }
 
     public void deleteAllSchedules(){
@@ -408,6 +427,96 @@ public class SQLWrapper extends SQLiteOpenHelper {
         }
 
         return exerciseList;
+    }
+
+    public Exercise getExerciseByID(int exerciseID){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Exercise exercise = new Exercise();
+        String sqlSelect = "SELECT * FROM " + TABLE_EXERCISES + " WHERE " + EXERCISE_ID + " = " + exerciseID;
+        Cursor cursor = db.rawQuery(sqlSelect, null);
+        if(cursor.moveToFirst()){
+
+            return new Exercise(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2),
+                    Integer.parseInt(cursor.getString(3)), getLocationByID(Integer.parseInt(cursor.getString(4))),
+                    getCategoryByID(Integer.parseInt(cursor.getString(5))), Integer.parseInt(cursor.getString(6)),
+                    Integer.parseInt(cursor.getString(7)), Integer.parseInt(cursor.getString(8)), Integer.parseInt(cursor.getString(9)));
+        }
+        return exercise;
+    }
+
+    public List<Workout_X_Exercise> getAllWorkoutReferences(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<Workout_X_Exercise> crossReferenceList = new ArrayList<Workout_X_Exercise>();
+        String sqlSelect = "SELECT * FROM " + TABLE_WORKOUT_X_EXERCISES;
+        Cursor cursor = db.rawQuery(sqlSelect, null);
+        if(cursor.moveToFirst()) {
+            do {
+                crossReferenceList.add(new Workout_X_Exercise(getWorkoutByID(Integer.parseInt(cursor.getString(0))), getExerciseByID(Integer.parseInt(cursor.getString(1))),
+                        Integer.parseInt(cursor.getString(2)), Integer.parseInt(cursor.getString(3)), Integer.parseInt(cursor.getString(4)),
+                        Integer.parseInt(cursor.getString(5))));
+            } while (cursor.moveToNext());
+        }
+        return crossReferenceList;
+    }
+
+    public List<Workout_X_Exercise> getExercisesOfWorkout(int workoutID){
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<Workout_X_Exercise> crossReferenceList = new ArrayList<Workout_X_Exercise>();
+        String sqlSelect = "SELECT * FROM " + TABLE_WORKOUT_X_EXERCISES + " WHERE " + W_X_E_WORKOUT_ID + " = " + workoutID;
+        Cursor cursor = db.rawQuery(sqlSelect, null);
+        if(cursor.moveToFirst()) {
+            do {
+                crossReferenceList.add(new Workout_X_Exercise(getWorkoutByID(Integer.parseInt(cursor.getString(0))), getExerciseByID(Integer.parseInt(cursor.getString(1))),
+                        Integer.parseInt(cursor.getString(2)), Integer.parseInt(cursor.getString(3)), Integer.parseInt(cursor.getString(4)),
+                        Integer.parseInt(cursor.getString(5))));
+            } while (cursor.moveToNext());
+        }
+        return crossReferenceList;
+    }
+
+
+    public List<Workout> getAllWorkouts(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<Workout> workoutList = new ArrayList<Workout>();
+        String sqlSelect = "SELECT * FROM " + TABLE_WORKOUTS;
+        Cursor cursor = db.rawQuery(sqlSelect, null);
+        if(cursor.moveToFirst()){
+            do{
+                Workout workout = new Workout();
+                workout.setWorkoutID(Integer.parseInt(cursor.getString(0)));
+                workout.setName(cursor.getString(1));
+                workout.setType(getTypeByID(Integer.parseInt(cursor.getString(2))));
+                workout.setLocation(getLocationByID(Integer.parseInt(cursor.getString(3))));
+                workout.setSets(Integer.parseInt(cursor.getString(4)));
+                workout.setRestBetweenSets(Integer.parseInt(cursor.getString(5)));
+                workout.setRestBetweenExercises(Integer.parseInt(cursor.getString(6)));
+                List<Workout_X_Exercise> referenceList = getExercisesOfWorkout(workout.getWorkoutID());
+                List<Exercise> exerciseList = new ArrayList<>();
+
+                for(Workout_X_Exercise reference : referenceList){
+                    exerciseList.add(reference.getExercise());
+                }
+
+                workout.setExerciseList(exerciseList);
+                workoutList.add(workout);
+
+            }while(cursor.moveToNext());
+        }
+        return workoutList;
+    }
+
+    public Workout getWorkoutByID(int workoutID){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Workout workout = new Workout();
+        String sqlSelect = "SELECT * FROM " + TABLE_WORKOUTS + " WHERE " + WORKOUTS_ID + " = " + workoutID;
+        Cursor cursor = db.rawQuery(sqlSelect, null);
+        if(cursor.moveToFirst()){
+
+            return new Workout(Integer.parseInt(cursor.getString(0)), cursor.getString(1), getTypeByID(Integer.parseInt(cursor.getString(2))),
+                    getLocationByID(Integer.parseInt(cursor.getString(3))), null , Integer.parseInt(cursor.getString(4)),
+                    Integer.parseInt(cursor.getString(5)), Integer.parseInt(cursor.getString(6)));
+        }
+        return workout;
     }
 
 }

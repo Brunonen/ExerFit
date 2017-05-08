@@ -13,9 +13,12 @@ import android.widget.ListView;
 
 import com.example.bruno.exerfit.R;
 import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.DTO.Exercise;
+import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.DTO.Workout;
+import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.DTO.Workout_X_Exercise;
 import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.Database.DBDefaultFiller;
 import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.Database.SQLWrapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WorkoutScreen extends AppCompatActivity {
@@ -62,23 +65,32 @@ public class WorkoutScreen extends AppCompatActivity {
             System.out.println("ID: " + type.getTypeID() + "  DESC: " + type.getDescription());
         }*/
 
-        List<Exercise> exerciseList = sqlWrapper.getAllExercises();
+       /* List<Workout> workoutList = sqlWrapper.getAllWorkouts();
 
-        for(Exercise exec : exerciseList){
+        for(Workout workout : workoutList){
             String outString = "";
-            outString += "ID: " + exec.getExerciseID();
-            outString += "\nName: " + exec.getName();
-            outString += "\nDESC: " + exec.getDescription();
-            outString += "\nLocation: " + exec.getLocation().getDescription();
-            outString += "\nCategory: " + exec.getCategory().getDescription();
-            outString += "\nIntensity: " + exec.getIntensity();
-            outString += "\nDefaultReps: " + exec.getDefaultReps();
-            outString += "\nDefaultKG: " + exec.getDefaultWeightKG();
-            outString += "\nDEaultLBS: " + exec.getDefaultWeightLBS();
-            outString += "\nDefaultDistanceM: " + exec.getDefaultDistanceM();
+            outString += "ID: " + workout.getWorkoutID();
+            outString += "\nName: " + workout.getName();
+            outString += "\nLocation: " + workout.getLocation().getDescription();
+            outString += "\nType: " + workout.getType().getDescription();
+            outString += "\nSets: " + workout.getSets();
+            outString += "\nRestBetweenSets: " + workout.getRestBetweenSets();
+            outString += "\nRestBetweenExercises: " + workout.getRestBetweenExercises();
+            outString += "\nExercises: ";
+
+            for(Exercise exec : workout.getExerciseList()){
+                outString += "\n\t" + exec.getName();
+            }
 
             System.out.println(outString);
-        }
+        }*/
+
+        /*List<Workout_X_Exercise> references = sqlWrapper.getAllWorkoutReferences();
+        System.out.println(references);
+        for(Workout_X_Exercise ref : references){
+            System.out.println(ref.getWorkout().getName() + " " + ref.getExercise().getName());
+        }*/
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
