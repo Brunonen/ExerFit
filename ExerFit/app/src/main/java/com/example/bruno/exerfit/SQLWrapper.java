@@ -6,9 +6,13 @@ package com.example.bruno.exerfit;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabaseLockedException;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SQLWrapper extends SQLiteOpenHelper {
 
@@ -76,27 +80,18 @@ public class SQLWrapper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_CATEGORY_TABLE = "CREATE TABLE '" + TABLE_CATEGORY + "'("
-                + CATEGORY_ID + " int(11) NOT NULL AUTO_INCREMENT," + CATEGORY_DESCRIPTION + " varchar(45) NOT NULL,"
-                + "PRIMARY KEY (`"+CATEGORY_ID+"`),"
-                + "UNIQUE KEY `"+CATEGORY_ID+"_UNIQUE` (`"+CATEGORY_ID+"`),"
-                + "UNIQUE KEY `"+CATEGORY_DESCRIPTION+"Description_UNIQUE` (`"+CATEGORY_DESCRIPTION+"`)";
+        String CREATE_CATEGORY_TABLE = "CREATE TABLE IF NOT EXISTS '" + TABLE_CATEGORY + "'("
+                + CATEGORY_ID + " INTEGER PRIMARY KEY," + CATEGORY_DESCRIPTION + " varchar(45) NOT NULL UNIQUE)";
 
-        String CREATE_LOCATION_TABLE = "CREATE TABLE " + TABLE_LOCATION + "("
-                + LOCATION_ID + " int(11) NOT NULL AUTO_INCREMENT," + LOCATION_DESCRIPTION + " varchar(45) NOT NULL,"
-                + "PRIMARY KEY (`"+LOCATION_ID+"`),"
-                + "UNIQUE KEY `"+LOCATION_ID+"_UNIQUE` (`"+LOCATION_ID+"`),"
-                + "UNIQUE KEY `"+LOCATION_DESCRIPTION+"_UNIQUE` (`"+LOCATION_DESCRIPTION+"`)";
+        String CREATE_LOCATION_TABLE = "CREATE TABLE IF NOT EXISTS '" + TABLE_LOCATION + "'("
+                + LOCATION_ID + " INTEGER PRIMARY KEY," + LOCATION_DESCRIPTION + " varchar(45) NOT NULL UNIQUE)";
 
-        String CREATE_TYPE_TABLE = "CREATE TABLE " + TABLE_TYPE + "("
-                + TYPE_ID + " int(11) NOT NULL AUTO_INCREMENT," + TYPE_DESCRIPTION + " varchar(45) NOT NULL,"
-                + "PRIMARY KEY (`"+TYPE_ID+"`),"
-                + "UNIQUE KEY `"+TYPE_ID+"_UNIQUE` (`"+TYPE_ID+"`),"
-                + "UNIQUE KEY `"+TYPE_DESCRIPTION+"_UNIQUE` (`"+TYPE_DESCRIPTION+"`)";
+        String CREATE_TYPE_TABLE = "CREATE TABLE IF NOT EXISTS '" + TABLE_TYPE + "'("
+                + TYPE_ID + " INTEGER PRIMARY KEY," + TYPE_DESCRIPTION + " varchar(45) NOT NULL UNIQUE)";
 
-        String CREATE_TABLE_EXERCISES = "CREATE TABLE '" + TABLE_EXERCISES +"' ("
-                +"'"+ EXERCISE_ID +"' int(11) NOT NULL AUTO_INCREMENT,"
-                +"'"+ EXERCISE_NAME +"' varchar(45) NOT NULL,"
+        String CREATE_TABLE_EXERCISES = "CREATE TABLE IF NOT EXISTS '" + TABLE_EXERCISES +"' ("
+                +"'"+ EXERCISE_ID +"' INTEGER PRIMARY KEY,"
+                +"'"+ EXERCISE_NAME +"' varchar(45) NOT NULL UNIQUE,"
                 +"'"+ EXERCISE_DESCRIPTION +"' longtext NOT NULL,"
                 +"'"+ EXERCISE_INTENSITY +"' int(11) NOT NULL,"
                 +"'"+ EXERCISE_LOCATION +"' int(11) NOT NULL,"
@@ -105,50 +100,37 @@ public class SQLWrapper extends SQLiteOpenHelper {
                 +"'"+ EXERCISE_DEFAULT_WEIGHT_KG +"' int(11) DEFAULT NULL,"
                 +"'"+ EXERCISE_DEFAULT_WEIGHT_LBS +"' int(11) DEFAULT NULL,"
                 +"'"+ EXERCISE_DEFAULT_DISTANCE_M +"' int(11) DEFAULT NULL,"
-                +" PRIMARY KEY (`"+EXERCISE_ID+"`),"
-                +"UNIQUE KEY `"+EXERCISE_ID+"_UNIQUE` (`"+EXERCISE_ID+"`),"
-                +"UNIQUE KEY `"+EXERCISE_NAME+"_UNIQUE` (`"+EXERCISE_NAME+"'),"
-                +"KEY `fk_Location_idx` (`"+EXERCISE_LOCATION+"`),"
-                +"KEY `fk_Category_idx` (`"+EXERCISE_CATEGORY+"`),"
-                +"CONSTRAINT `fk_Category` FOREIGN KEY (`"+EXERCISE_CATEGORY+"`) REFERENCES `"+TABLE_CATEGORY+"` (`"+CATEGORY_ID+"`) ON DELETE NO ACTION ON UPDATE NO ACTION,"
-                +"CONSTRAINT `fk_Location` FOREIGN KEY (`"+EXERCISE_LOCATION+"`) REFERENCES `"+TABLE_LOCATION+"` (`"+LOCATION_ID+"`) ON DELETE NO ACTION ON UPDATE NO ACTION"
+                +"FOREIGN KEY (`"+EXERCISE_CATEGORY+"`) REFERENCES `"+TABLE_CATEGORY+"` (`"+CATEGORY_ID+"`) ON DELETE NO ACTION ON UPDATE NO ACTION,"
+                +"FOREIGN KEY (`"+EXERCISE_LOCATION+"`) REFERENCES `"+TABLE_LOCATION+"` (`"+LOCATION_ID+"`) ON DELETE NO ACTION ON UPDATE NO ACTION"
                 +")";
 
-        String CREATE_TABLE_WORKOUTS = "CREATE TABLE `"+TABLE_WORKOUTS+"` ("
-                +"`"+WORKOUTS_ID+"` int(11) NOT NULL AUTO_INCREMENT,"
+        String CREATE_TABLE_WORKOUTS = "CREATE TABLE IF NOT EXISTS `"+TABLE_WORKOUTS+"` ("
+                +"`"+WORKOUTS_ID+"` INTEGER PRIMARY KEY,"
                 +"`"+WORKOUTS_NAME+"` varchar(45) NOT NULL,"
                 +"`"+WORKOUTS_Type+"` int(11) NOT NULL,"
                 +"`"+WORKOUTS_LOCATION+"` int(11) NOT NULL,"
                 +"`"+WORKOUTS_SETS+"` int(11) DEFAULT NULL,"
                 +"`"+WORKOUTS_REST_BETWEEN_SETS+"` int(11) NOT NULL,"
                 +"`"+WORKOUTS_REST_BETWEEN_EXERCISES+"` int(11) NOT NULL,"
-                +"PRIMARY KEY (`"+WORKOUTS_ID+"`),"
-                +"UNIQUE KEY `"+WORKOUTS_ID+"_UNIQUE` (`"+WORKOUTS_ID+"+`),"
-                +"UNIQUE KEY `"+WORKOUTS_NAME+"_UNIQUE` (`"+WORKOUTS_NAME+"`),"
-                +"KEY `fk_Type_idx` (`"+WORKOUTS_Type+"`),"
-                +"KEY `fk_Workout_Location_idx` (`"+WORKOUTS_LOCATION+"`),"
-                +"CONSTRAINT `fk_Type` FOREIGN KEY (`"+WORKOUTS_Type+"`) REFERENCES `"+TABLE_TYPE+"` (`"+TYPE_ID+"`) ON DELETE NO ACTION ON UPDATE NO ACTION,"
-                +"CONSTRAINT `fk_Workout_Location` FOREIGN KEY (`"+WORKOUTS_LOCATION+"`) REFERENCES `"+TABLE_LOCATION+"` (`"+LOCATION_ID+"`) ON DELETE NO ACTION ON UPDATE NO ACTION"
+                +"FOREIGN KEY (`"+WORKOUTS_Type+"`) REFERENCES `"+TABLE_TYPE+"` (`"+TYPE_ID+"`) ON DELETE NO ACTION ON UPDATE NO ACTION,"
+                +"FOREIGN KEY (`"+WORKOUTS_LOCATION+"`) REFERENCES `"+TABLE_LOCATION+"` (`"+LOCATION_ID+"`) ON DELETE NO ACTION ON UPDATE NO ACTION"
                 +")";
 
-        String CREATE_TABLE_WORKOUTS_X_EXERCISES = "CREATE TABLE `"+TABLE_WORKOUT_X_EXERCISES+"` ("
+        String CREATE_TABLE_WORKOUTS_X_EXERCISES = "CREATE TABLE IF NOT EXISTS `"+TABLE_WORKOUT_X_EXERCISES+"` ("
                 +"`"+W_X_E_WORKOUT_ID+"` int(11) NOT NULL,"
                 +"`"+W_X_E_EXERCISE_ID+"` int(11) NOT NULL,"
                 +"`"+W_X_E_CUSTOM_REPS+"` int(11) DEFAULT NULL,"
                 +"`"+W_X_E_CUSTOM_WEIGHT_KG+"` int(11) DEFAULT NULL,"
                 +"`"+W_X_E_CUSTOM_WEIGHT_LBS+"` int(11) DEFAULT NULL,"
                 +"`"+W_X_E_CUSTOM_DISTANCE_M+"` int(11) DEFAULT NULL,"
-                +"KEY `fk_WorkoutID_idx` (`"+W_X_E_WORKOUT_ID+"`),"
-                +"KEY `fk_ExerciseID_idx` (`"+W_X_E_EXERCISE_ID+"`),"
-                +"CONSTRAINT `fk_ExerciseID` FOREIGN KEY (`"+W_X_E_EXERCISE_ID+"`) REFERENCES `"+TABLE_EXERCISES+"` (`"+EXERCISE_ID+"`) ON DELETE NO ACTION ON UPDATE NO ACTION,"
-                +"CONSTRAINT `fk_WorkoutID` FOREIGN KEY (`"+W_X_E_WORKOUT_ID+"`) REFERENCES `"+TABLE_WORKOUTS+"` (`"+WORKOUTS_ID+"`) ON DELETE NO ACTION ON UPDATE NO ACTION"
+                +"FOREIGN KEY (`"+W_X_E_EXERCISE_ID+"`) REFERENCES `"+TABLE_EXERCISES+"` (`"+EXERCISE_ID+"`) ON DELETE NO ACTION ON UPDATE NO ACTION,"
+                +"FOREIGN KEY (`"+W_X_E_WORKOUT_ID+"`) REFERENCES `"+TABLE_WORKOUTS+"` (`"+WORKOUTS_ID+"`) ON DELETE NO ACTION ON UPDATE NO ACTION"
                 +")";
 
-        String CREATE_TABLE_SCHEDULE = "CREATE TABLE `"+TABLE_SCHEDULE+"` (" +
+        String CREATE_TABLE_SCHEDULE = "CREATE TABLE IF NOT EXISTS`"+TABLE_SCHEDULE+"` (" +
                 "  `"+SCHEDULE_WORKOUT_ID+"` int(11) NOT NULL," +
                 "  `"+SCHEDULE_DAY_OF_THE_WEEK+"` int(11) NOT NULL," +
-                "  KEY `fk_WorkoutID_schedule_idx` (`"+SCHEDULE_WORKOUT_ID+"`)," +
-                "  CONSTRAINT `fk_WorkoutID_schedule` FOREIGN KEY (`"+SCHEDULE_WORKOUT_ID+"`) REFERENCES `"+TABLE_WORKOUTS+"` (`"+WORKOUTS_ID+"`) ON DELETE NO ACTION ON UPDATE NO ACTION" +
+                " FOREIGN KEY (`"+SCHEDULE_WORKOUT_ID+"`) REFERENCES `"+TABLE_WORKOUTS+"` (`"+WORKOUTS_ID+"`) ON DELETE NO ACTION ON UPDATE NO ACTION" +
                 ")";
 
         db.execSQL(CREATE_CATEGORY_TABLE);
@@ -246,4 +228,82 @@ public class SQLWrapper extends SQLiteOpenHelper {
 
         db.close();
     }
+
+    public List<Category> getAllCategories(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<Category> categoryList = new ArrayList<Category>();
+        String sqlSelect = "SELECT * FROM " + TABLE_CATEGORY;
+        Cursor cursor = db.rawQuery(sqlSelect, null);
+        if(cursor.moveToFirst()){
+            do{
+                categoryList.add(new Category(Integer.parseInt(cursor.getString(0)), cursor.getString(1)));
+            }while(cursor.moveToNext());
+        }
+
+        return categoryList;
+    }
+
+    public Category getCategoryByID(int categoryID){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Category category = new Category();
+        String sqlSelect = "SELECT * FROM " + TABLE_CATEGORY + " WHERE " + CATEGORY_ID + " = " + categoryID;
+        Cursor cursor = db.rawQuery(sqlSelect, null);
+        if(cursor.moveToFirst()){
+
+                return new Category(Integer.parseInt(cursor.getString(0)), cursor.getString(1));
+        }
+        return category;
+    }
+
+    public Category getCategoryByDescription(String categoryDescription){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Category category = new Category();
+        String sqlSelect = "SELECT * FROM " + TABLE_CATEGORY + " WHERE " + CATEGORY_DESCRIPTION + " = " + categoryDescription;
+        Cursor cursor = db.rawQuery(sqlSelect, null);
+        if(cursor.moveToFirst()){
+
+            return new Category(Integer.parseInt(cursor.getString(0)), cursor.getString(1));
+        }
+        return category;
+    }
+
+    public List<Location> getAllLocations(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<Location> locationList = new ArrayList<Location>();
+        String sqlSelect = "SELECT * FROM " + TABLE_LOCATION;
+        Cursor cursor = db.rawQuery(sqlSelect, null);
+        if(cursor.moveToFirst()){
+            do{
+                locationList.add(new Location(Integer.parseInt(cursor.getString(0)), cursor.getString(1)));
+            }while(cursor.moveToNext());
+        }
+
+        return locationList;
+    }
+
+    public Location getLocationByID(int locationID){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Location location = new Location();
+        String sqlSelect = "SELECT * FROM " + TABLE_LOCATION + " WHERE " + LOCATION_ID + " = " + locationID;
+        Cursor cursor = db.rawQuery(sqlSelect, null);
+        if(cursor.moveToFirst()){
+
+            return new Location(Integer.parseInt(cursor.getString(0)), cursor.getString(1));
+        }
+        return location;
+    }
+
+    public Location getLocationByDescription(String locationDescription){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Location location = new Location();
+        String sqlSelect = "SELECT * FROM " + TABLE_LOCATION + " WHERE " + LOCATION_DESCRIPTION + " = " + locationDescription;
+        Cursor cursor = db.rawQuery(sqlSelect, null);
+        if(cursor.moveToFirst()){
+
+            return new Location(Integer.parseInt(cursor.getString(0)), cursor.getString(1));
+        }
+        return location;
+    }
+
+
 }

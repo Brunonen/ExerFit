@@ -15,7 +15,7 @@ public class DBDefaultFiller {
     }
 
     public void fillDataBaseWithDefaultData(){
-        sqlWrapper.addCategory(new Category(0, "Full Body Workout"));
+        /*sqlWrapper.addCategory(new Category(0, "Full Body Workout"));
         sqlWrapper.addCategory(new Category(0, "Split Workouts"));
         sqlWrapper.addCategory(new Category(0, "Single Muscle"));
         sqlWrapper.addCategory(new Category(0, "Cardio"));
@@ -34,8 +34,9 @@ public class DBDefaultFiller {
         sqlWrapper.addType(new Type(0, "Thighs"));
         sqlWrapper.addType(new Type(0, "Calves"));
         sqlWrapper.addType(new Type(0, "Abs"));
-        sqlWrapper.addType(new Type(0, "Glutes"));
+        sqlWrapper.addType(new Type(0, "Glutes"));*/
 
+        sqlWrapper.addExercise(new Exercise(0, "Crunches", "On the Floor Chrunch", 4, sqlWrapper.getLocationByID(2), ));
     }
 
 

@@ -12,6 +12,8 @@ import android.widget.Chronometer;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import java.util.List;
+
 public class WorkoutScreen extends AppCompatActivity {
 
     static final int REST_TIME = 30;
@@ -33,6 +35,16 @@ public class WorkoutScreen extends AppCompatActivity {
 
         ListView listView = (ListView) findViewById(R.id.List_View);
         listView.setAdapter(adapter);
+
+        SQLWrapper sqlWrapper = new SQLWrapper(this);
+        DBDefaultFiller db = new DBDefaultFiller(this);
+        db.fillDataBaseWithDefaultData();
+
+        List<Category> catList = sqlWrapper.getAllCategories();
+
+        for(Category cat : catList) {
+            System.out.println("ID: " + cat.getCategoryID() + "  \nDESC: " + cat.getDescription());
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
