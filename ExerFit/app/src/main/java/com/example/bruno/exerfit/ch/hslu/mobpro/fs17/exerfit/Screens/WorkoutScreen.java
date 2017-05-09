@@ -65,7 +65,8 @@ public class WorkoutScreen extends AppCompatActivity {
             System.out.println("ID: " + type.getTypeID() + "  DESC: " + type.getDescription());
         }*/
 
-       /* List<Workout> workoutList = sqlWrapper.getAllWorkouts();
+        //List<Workout> workoutList = sqlWrapper.getWorkoutsByFilterObject(sqlWrapper.getTypeByID(1), sqlWrapper.getLocationByID(2));
+        List<Workout> workoutList = sqlWrapper.getAllWorkouts();
 
         for(Workout workout : workoutList){
             String outString = "";
@@ -80,10 +81,11 @@ public class WorkoutScreen extends AppCompatActivity {
 
             for(Exercise exec : workout.getExerciseList()){
                 outString += "\n\t" + exec.getName();
+                //outString += "\n\n" + exec.getDescription();
             }
 
             System.out.println(outString);
-        }*/
+        }
 
         /*List<Workout_X_Exercise> references = sqlWrapper.getAllWorkoutReferences();
         System.out.println(references);

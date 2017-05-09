@@ -326,7 +326,7 @@ public class SQLWrapper extends SQLiteOpenHelper {
     public Category getCategoryByDescription(String categoryDescription){
         SQLiteDatabase db = this.getReadableDatabase();
         Category category = new Category();
-        String sqlSelect = "SELECT * FROM " + TABLE_CATEGORY + " WHERE " + CATEGORY_DESCRIPTION + " = " + categoryDescription;
+        String sqlSelect = "SELECT * FROM " + TABLE_CATEGORY + " WHERE " + CATEGORY_DESCRIPTION + " = '" + categoryDescription + "'";
         Cursor cursor = db.rawQuery(sqlSelect, null);
         if(cursor.moveToFirst()){
 
@@ -364,7 +364,7 @@ public class SQLWrapper extends SQLiteOpenHelper {
     public Location getLocationByDescription(String locationDescription){
         SQLiteDatabase db = this.getReadableDatabase();
         Location location = new Location();
-        String sqlSelect = "SELECT * FROM " + TABLE_LOCATION + " WHERE " + LOCATION_DESCRIPTION + " = " + locationDescription;
+        String sqlSelect = "SELECT * FROM " + TABLE_LOCATION + " WHERE " + LOCATION_DESCRIPTION + " = '" + locationDescription + "'";
         Cursor cursor = db.rawQuery(sqlSelect, null);
         if(cursor.moveToFirst()){
 
@@ -403,7 +403,7 @@ public class SQLWrapper extends SQLiteOpenHelper {
     public Type getTypeByDescirption(String typeDesc){
         SQLiteDatabase db = this.getReadableDatabase();
         Type type = new Type();
-        String sqlSelect = "SELECT * FROM " + TABLE_TYPE + " WHERE " + TYPE_DESCRIPTION + " = " + typeDesc;
+        String sqlSelect = "SELECT * FROM " + TABLE_TYPE + " WHERE " + TYPE_DESCRIPTION + " = '" + typeDesc + "'";
         Cursor cursor = db.rawQuery(sqlSelect, null);
         if(cursor.moveToFirst()){
 
@@ -512,11 +512,56 @@ public class SQLWrapper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(sqlSelect, null);
         if(cursor.moveToFirst()){
 
+            //Get Coresponing Exercises
+            /*List<Workout_X_Exercise> referenceList = getExercisesOfWorkout(workoutID);
+            List<Exercise> exerciseList = new ArrayList<>();
+
+            for(Workout_X_Exercise reference : referenceList){
+                exerciseList.add(reference.getExercise());
+            }*/
+
             return new Workout(Integer.parseInt(cursor.getString(0)), cursor.getString(1), getTypeByID(Integer.parseInt(cursor.getString(2))),
                     getLocationByID(Integer.parseInt(cursor.getString(3))), null , Integer.parseInt(cursor.getString(4)),
                     Integer.parseInt(cursor.getString(5)), Integer.parseInt(cursor.getString(6)));
         }
         return workout;
+    }
+
+    public List<Workout> getWorkoutByFilterString(String type, String location){
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<Workout> workoutList = new ArrayList<Workout>();
+        String sqlSelect = "SELECT * FROM " + TABLE_WORKOUTS + " WHERE " + WORKOUTS_LOCATION + " = "
+                + getLocationByDescription(location).getLocationID() + " AND " + WORKOUTS_Type +
+                " = " + getTypeByDescirption(type).getTypeID();
+
+        Cursor cursor = db.rawQuery(sqlSelect, null);
+        if(cursor.moveToFirst()){
+            do{
+                Workout workout = new Workout();
+                workout.setWorkoutID(Integer.parseInt(cursor.getString(0)));
+                workout.setName(cursor.getString(1));
+                workout.setType(getTypeByID(Integer.parseInt(cursor.getString(2))));
+                workout.setLocation(getLocationByID(Integer.parseInt(cursor.getString(3))));
+                workout.setSets(Integer.parseInt(cursor.getString(4)));
+                workout.setRestBetweenSets(Integer.parseInt(cursor.getString(5)));
+                workout.setRestBetweenExercises(Integer.parseInt(cursor.getString(6)));
+                List<Workout_X_Exercise> referenceList = getExercisesOfWorkout(workout.getWorkoutID());
+                List<Exercise> exerciseList = new ArrayList<>();
+
+                for(Workout_X_Exercise reference : referenceList){
+                    exerciseList.add(reference.getExercise());
+                }
+
+                workout.setExerciseList(exerciseList);
+                workoutList.add(workout);
+
+            }while(cursor.moveToNext());
+        }
+        return workoutList;
+    }
+
+    public List<Workout> getWorkoutsByFilterObject(Type type, Location location){
+        return getWorkoutByFilterString(type.getDescription(), location.getDescription());
     }
 
 }
