@@ -22,7 +22,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ch.hslu.mobpro.fs17.exerfit.Screens.TestFragment"></activity>
+        <activity android:name=".ch.hslu.mobpro.fs17.exerfit.Screens.TestFragment" />
+        <activity android:name=".ch.hslu.mobpro.fs17.exerfit.Screens.SelectWorkoutFragment" />
+        <activity android:name=".ch.hslu.mobpro.fs17.exerfit.Screens.WorkoutFragment" />
+        <activity android:name=".ch.hslu.mobpro.fs17.exerfit.Screens.CreateWorkoutFragment" />
+        <activity android:name=".ch.hslu.mobpro.fs17.exerfit.Screens.ScheduleWorkoutFragment"></activity>
     </application>
 
 </manifest>

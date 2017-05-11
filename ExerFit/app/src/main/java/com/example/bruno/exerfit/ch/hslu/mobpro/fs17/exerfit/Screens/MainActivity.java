@@ -1,7 +1,9 @@
 package com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.Screens;
 
-import android.app.FragmentManager;
-import android.app.Fragment;
+//import android.app.FragmentManager;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.Fragment;
+//import android.app.Fragment;
 import android.content.res.Configuration;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -42,25 +44,25 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                Fragment fragment;
                switch(position) {
-                   //Do Workout
+                   //Do Workout (PreWorkout)
                     case 0:
                         fragment = new PreWorkoutFragment();
                         break;
                     // Select Workout
                     case 1:
-                        fragment = new PreWorkoutFragment();
+                        fragment = new SelectWorkoutFragment();
                         break;
                     //Workout
                     case 2:
-                        fragment = new PreWorkoutFragment();
+                        fragment = new WorkoutFragment();
                         break;
                     //Schedule Workout
                     case 3:
-                        fragment = new PreWorkoutFragment();
+                        fragment = new ScheduleWorkoutFragment();
                        break;
                     //Create Workout
                     case 4:
-                        fragment = new PreWorkoutFragment();
+                        fragment = new CreateWorkoutFragment();
                         break;
 
                     default :
@@ -70,8 +72,8 @@ public class MainActivity extends AppCompatActivity {
                // Toast.makeText(MainActivity.this, String.valueOf(position) , Toast.LENGTH_SHORT).show();
                 // Insert the fragment by replacing any existing fragment
                 //Fragment fragment = new PreWorkoutFragment();
-                FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).addToBackStack("LastFragment").commit();
                 mDrawerLayout.closeDrawer(mDrawerList);
 
             }
@@ -79,6 +81,13 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.popBackStackImmediate();
+        //getFragmentManager().popBackStackImmediate();
     }
 
     @Override
