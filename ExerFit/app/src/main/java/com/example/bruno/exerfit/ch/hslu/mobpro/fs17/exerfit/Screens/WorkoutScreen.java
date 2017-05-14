@@ -12,7 +12,9 @@ import android.widget.Chronometer;
 import android.widget.ListView;
 
 import com.example.bruno.exerfit.R;
+import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.DTO.DayOfTheWeek;
 import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.DTO.Exercise;
+import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.DTO.Schedule;
 import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.DTO.Workout;
 import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.DTO.Workout_X_Exercise;
 import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.Database.DBDefaultFiller;
@@ -45,7 +47,7 @@ public class WorkoutScreen extends AppCompatActivity {
 
         SQLWrapper sqlWrapper = new SQLWrapper(this);
         DBDefaultFiller db = new DBDefaultFiller(this);
-        db.fillDataBaseWithDefaultData();
+        //db.fillDataBaseWithDefaultData();
 
         /*List<Category> catList = sqlWrapper.getAllCategories();
 
@@ -66,7 +68,7 @@ public class WorkoutScreen extends AppCompatActivity {
         }*/
 
         //List<Workout> workoutList = sqlWrapper.getWorkoutsByFilterObject(sqlWrapper.getTypeByID(1), sqlWrapper.getLocationByID(2));
-        List<Workout> workoutList = sqlWrapper.getAllWorkouts();
+        /*List<Workout> workoutList = sqlWrapper.getAllWorkouts();
 
         for(Workout workout : workoutList){
             String outString = "";
@@ -85,13 +87,33 @@ public class WorkoutScreen extends AppCompatActivity {
             }
 
             System.out.println(outString);
-        }
+        }*/
 
         /*List<Workout_X_Exercise> references = sqlWrapper.getAllWorkoutReferences();
         System.out.println(references);
         for(Workout_X_Exercise ref : references){
             System.out.println(ref.getWorkout().getName() + " " + ref.getExercise().getName());
         }*/
+
+        /*List<Schedule> scheduleList = sqlWrapper.getAllSchedules();
+        String outString = "";
+        for(Schedule sched : scheduleList){
+            outString += sched.getWorkout().getWorkoutID() + "\n";
+            outString += sched.getWorkout().getName() + "\t\n";
+            outString += sched.getDayOfTheWeek() +"\n\n";
+        }
+
+        System.out.println(outString);
+
+        List<Schedule> scheduleListTuesday = sqlWrapper.getScheduleByDayOfTheWeek(DayOfTheWeek.TUESDAY);
+        outString = "\n\n second \n\n";
+        for(Schedule sched : scheduleListTuesday){
+            outString += sched.getWorkout().getWorkoutID() + "\n";
+            outString += sched.getWorkout().getName() + "\t\n";
+            outString += sched.getDayOfTheWeek();
+        }
+
+        System.out.println(outString);*/
 
     }
 

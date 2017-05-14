@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.StringRes;
 
 import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.DTO.Category;
+import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.DTO.DayOfTheWeek;
 import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.DTO.Exercise;
 import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.DTO.Location;
 import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.DTO.Type;
@@ -203,5 +204,11 @@ public class DBDefaultFiller {
         sqlWrapper.addWorkout(testWorkoutGym);
         sqlWrapper.addWorkout(testWorkoutAbs);
 
+        //ONLY FOR TEST!
+        /*sqlWrapper.addSchedule(sqlWrapper.getWorkoutByID(3), DayOfTheWeek.MONDAY);
+        sqlWrapper.addSchedule(sqlWrapper.getWorkoutByID(2), DayOfTheWeek.MONDAY);
+        sqlWrapper.addSchedule(sqlWrapper.getWorkoutByID(1), DayOfTheWeek.TUESDAY);
+        sqlWrapper.addSchedule(sqlWrapper.getWorkoutByID(3), DayOfTheWeek.TUESDAY);
+        sqlWrapper.addSchedule(sqlWrapper.getWorkoutByID(2), DayOfTheWeek.FRIDAY);*/
     }
 }

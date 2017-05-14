@@ -12,6 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.DTO.Category;
+import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.DTO.DayOfTheWeek;
 import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.DTO.Exercise;
 import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.DTO.Location;
 import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.DTO.Schedule;
@@ -283,7 +284,19 @@ public class SQLWrapper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(SCHEDULE_WORKOUT_ID, schedule.getWorkout().getWorkoutID());
-        values.put(SCHEDULE_DAY_OF_THE_WEEK, schedule.getDayOfTheWeek());
+        values.put(SCHEDULE_DAY_OF_THE_WEEK, schedule.getDayOfTheWeek().getDayOfTheWeek());
+        int id = (int) db.insert(TABLE_SCHEDULE, null, values);
+
+        db.close();
+
+        return id;
+    }
+
+    public int addSchedule(Workout workout, DayOfTheWeek dayOfTheWeek){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(SCHEDULE_WORKOUT_ID, workout.getWorkoutID());
+        values.put(SCHEDULE_DAY_OF_THE_WEEK, dayOfTheWeek.getDayOfTheWeek());
         int id = (int) db.insert(TABLE_SCHEDULE, null, values);
 
         db.close();
@@ -512,7 +525,7 @@ public class SQLWrapper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(sqlSelect, null);
         if(cursor.moveToFirst()){
 
-            //Get Coresponing Exercises
+            //Get Corresponing Exercises
             /*List<Workout_X_Exercise> referenceList = getExercisesOfWorkout(workoutID);
             List<Exercise> exerciseList = new ArrayList<>();
 
@@ -563,5 +576,49 @@ public class SQLWrapper extends SQLiteOpenHelper {
     public List<Workout> getWorkoutsByFilterObject(Type type, Location location){
         return getWorkoutByFilterString(type.getDescription(), location.getDescription());
     }
+
+    public List<Schedule> getAllSchedules(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<Schedule> scheduleList = new ArrayList<Schedule>();
+        String sqlSelect = "SELECT * FROM " + TABLE_SCHEDULE;
+        Cursor cursor = db.rawQuery(sqlSelect, null);
+        if(cursor.moveToFirst()){
+            do{
+                //System.out.println(cursor.getString(0) + " : : " + cursor.getString(1));
+                scheduleList.add(new Schedule(getWorkoutByID(Integer.parseInt(cursor.getString(0))), DayOfTheWeek.valueOfInt(Integer.parseInt(cursor.getString(1)))));
+            }while(cursor.moveToNext());
+        }
+
+        return scheduleList;
+    }
+
+    public List<Schedule> getScheduleByDayOfTheWeek(DayOfTheWeek dayOfTheWeek){
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<Schedule> scheduleList = new ArrayList<Schedule>();
+        String sqlSelect = "SELECT * FROM " + TABLE_SCHEDULE + " WHERE " + SCHEDULE_DAY_OF_THE_WEEK + " = " + dayOfTheWeek.getDayOfTheWeek();
+        Cursor cursor = db.rawQuery(sqlSelect, null);
+        if(cursor.moveToFirst()){
+            do{
+                scheduleList.add(new Schedule(getWorkoutByID(Integer.parseInt(cursor.getString(0))), DayOfTheWeek.valueOfInt(Integer.parseInt(cursor.getString(1)))));
+            }while(cursor.moveToNext());
+        }
+
+        return scheduleList;
+    }
+
+    public List<Schedule> getScheduleByWorkout(Workout workout){
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<Schedule> scheduleList = new ArrayList<Schedule>();
+        String sqlSelect = "SELECT * FROM " + TABLE_SCHEDULE + " WHERE " + SCHEDULE_WORKOUT_ID + " = " + workout.getWorkoutID();
+        Cursor cursor = db.rawQuery(sqlSelect, null);
+        if(cursor.moveToFirst()){
+            do{
+                scheduleList.add(new Schedule(getWorkoutByID(Integer.parseInt(cursor.getString(0))), DayOfTheWeek.valueOfInt(Integer.parseInt(cursor.getString(1)))));
+            }while(cursor.moveToNext());
+        }
+
+        return scheduleList;
+    }
+
 
 }
