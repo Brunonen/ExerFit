@@ -31,10 +31,19 @@ public class WorkoutScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout_screen);
-        String[] myStringArray = new String[2];
-        myStringArray[0] = "Sit-Ups     | 30";
-        myStringArray[1] = "Push-Ups    | 15";
 
+        SQLWrapper sqlWrapper = new SQLWrapper(this);
+        DBDefaultFiller db = new DBDefaultFiller(this);
+        db.fillDataBaseWithDefaultData();
+
+        Workout workout = sqlWrapper.getWorkoutByIDWithExercises(3);
+        List<String> exerciseList = new ArrayList<>();
+        for(Exercise exec : workout.getExerciseList()){
+            exerciseList.add(exec.getName() + "\t\t | " + exec.getDefaultReps());
+        }
+
+        String[] myStringArray = new String[exerciseList.size()];
+        myStringArray = exerciseList.toArray(myStringArray);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 R.layout.listitem_white_text, myStringArray);
@@ -45,9 +54,7 @@ public class WorkoutScreen extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.List_View);
         listView.setAdapter(adapter);
 
-        SQLWrapper sqlWrapper = new SQLWrapper(this);
-        DBDefaultFiller db = new DBDefaultFiller(this);
-        //db.fillDataBaseWithDefaultData();
+
 
         /*List<Category> catList = sqlWrapper.getAllCategories();
 
@@ -142,6 +149,6 @@ public class WorkoutScreen extends AppCompatActivity {
         cMeter.start();
 
         workOutBtn.setText("Set");
-        workOutBtn.setEnabled(false);
+        //workOutBtn.setEnabled(false);
     }
 }

@@ -4,7 +4,6 @@ package com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.Database;
  * Created by bruno on 01/05/2017.
  */
 
-import android.app.IntentService;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -246,7 +245,9 @@ public class SQLWrapper extends SQLiteOpenHelper {
         db.close();
 
         for(Exercise exec : workout.getExerciseList()){
-            addWorkoutXExercise(new Workout_X_Exercise(getWorkoutByID((int)id), exec, 0 ,0 ,0 ,0));
+            Workout tempWorkout = new Workout();
+            tempWorkout.setWorkoutID(id);
+            addWorkoutXExercise(new Workout_X_Exercise(tempWorkout, exec, exec.getDefaultReps() ,exec.getDefaultWeightKG() ,exec.getDefaultWeightLBS() ,exec.getDefaultDistanceM()));
         }
 
         return id;
@@ -464,7 +465,7 @@ public class SQLWrapper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(sqlSelect, null);
         if(cursor.moveToFirst()) {
             do {
-                crossReferenceList.add(new Workout_X_Exercise(getWorkoutByID(Integer.parseInt(cursor.getString(0))), getExerciseByID(Integer.parseInt(cursor.getString(1))),
+                crossReferenceList.add(new Workout_X_Exercise(getWorkoutByIDWithExercises(Integer.parseInt(cursor.getString(0))), getExerciseByID(Integer.parseInt(cursor.getString(1))),
                         Integer.parseInt(cursor.getString(2)), Integer.parseInt(cursor.getString(3)), Integer.parseInt(cursor.getString(4)),
                         Integer.parseInt(cursor.getString(5))));
             } while (cursor.moveToNext());
@@ -479,7 +480,9 @@ public class SQLWrapper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(sqlSelect, null);
         if(cursor.moveToFirst()) {
             do {
-                crossReferenceList.add(new Workout_X_Exercise(getWorkoutByID(Integer.parseInt(cursor.getString(0))), getExerciseByID(Integer.parseInt(cursor.getString(1))),
+                Workout tempWorkout = new Workout();
+                tempWorkout.setWorkoutID(Integer.parseInt(cursor.getString(0)));
+                crossReferenceList.add(new Workout_X_Exercise(tempWorkout, getExerciseByID(Integer.parseInt(cursor.getString(1))),
                         Integer.parseInt(cursor.getString(2)), Integer.parseInt(cursor.getString(3)), Integer.parseInt(cursor.getString(4)),
                         Integer.parseInt(cursor.getString(5))));
             } while (cursor.moveToNext());
@@ -507,7 +510,7 @@ public class SQLWrapper extends SQLiteOpenHelper {
                 List<Exercise> exerciseList = new ArrayList<>();
 
                 for(Workout_X_Exercise reference : referenceList){
-                    exerciseList.add(reference.getExercise());
+                    exerciseList.add(rewriteDefaultRepsWithCustomRepsIfSet(reference.getExercise(), reference));
                 }
 
                 workout.setExerciseList(exerciseList);
@@ -518,7 +521,7 @@ public class SQLWrapper extends SQLiteOpenHelper {
         return workoutList;
     }
 
-    public Workout getWorkoutByID(int workoutID){
+    public Workout getWorkoutByIDWithExercises(int workoutID){
         SQLiteDatabase db = this.getReadableDatabase();
         Workout workout = new Workout();
         String sqlSelect = "SELECT * FROM " + TABLE_WORKOUTS + " WHERE " + WORKOUTS_ID + " = " + workoutID;
@@ -526,12 +529,26 @@ public class SQLWrapper extends SQLiteOpenHelper {
         if(cursor.moveToFirst()){
 
             //Get Corresponing Exercises
-            /*List<Workout_X_Exercise> referenceList = getExercisesOfWorkout(workoutID);
+            List<Workout_X_Exercise> referenceList = getExercisesOfWorkout(workoutID);
             List<Exercise> exerciseList = new ArrayList<>();
 
             for(Workout_X_Exercise reference : referenceList){
-                exerciseList.add(reference.getExercise());
-            }*/
+                exerciseList.add(rewriteDefaultRepsWithCustomRepsIfSet(reference.getExercise(), reference));
+            }
+
+            return new Workout(Integer.parseInt(cursor.getString(0)), cursor.getString(1), getTypeByID(Integer.parseInt(cursor.getString(2))),
+                    getLocationByID(Integer.parseInt(cursor.getString(3))), exerciseList , Integer.parseInt(cursor.getString(4)),
+                    Integer.parseInt(cursor.getString(5)), Integer.parseInt(cursor.getString(6)));
+        }
+        return workout;
+    }
+
+    public Workout getWorkoutByIDNoExercises(int workoutID){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Workout workout = new Workout();
+        String sqlSelect = "SELECT * FROM " + TABLE_WORKOUTS + " WHERE " + WORKOUTS_ID + " = " + workoutID;
+        Cursor cursor = db.rawQuery(sqlSelect, null);
+        if(cursor.moveToFirst()){
 
             return new Workout(Integer.parseInt(cursor.getString(0)), cursor.getString(1), getTypeByID(Integer.parseInt(cursor.getString(2))),
                     getLocationByID(Integer.parseInt(cursor.getString(3))), null , Integer.parseInt(cursor.getString(4)),
@@ -585,7 +602,7 @@ public class SQLWrapper extends SQLiteOpenHelper {
         if(cursor.moveToFirst()){
             do{
                 //System.out.println(cursor.getString(0) + " : : " + cursor.getString(1));
-                scheduleList.add(new Schedule(getWorkoutByID(Integer.parseInt(cursor.getString(0))), DayOfTheWeek.valueOfInt(Integer.parseInt(cursor.getString(1)))));
+                scheduleList.add(new Schedule(getWorkoutByIDWithExercises(Integer.parseInt(cursor.getString(0))), DayOfTheWeek.valueOfInt(Integer.parseInt(cursor.getString(1)))));
             }while(cursor.moveToNext());
         }
 
@@ -599,7 +616,7 @@ public class SQLWrapper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(sqlSelect, null);
         if(cursor.moveToFirst()){
             do{
-                scheduleList.add(new Schedule(getWorkoutByID(Integer.parseInt(cursor.getString(0))), DayOfTheWeek.valueOfInt(Integer.parseInt(cursor.getString(1)))));
+                scheduleList.add(new Schedule(getWorkoutByIDWithExercises(Integer.parseInt(cursor.getString(0))), DayOfTheWeek.valueOfInt(Integer.parseInt(cursor.getString(1)))));
             }while(cursor.moveToNext());
         }
 
@@ -613,12 +630,19 @@ public class SQLWrapper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(sqlSelect, null);
         if(cursor.moveToFirst()){
             do{
-                scheduleList.add(new Schedule(getWorkoutByID(Integer.parseInt(cursor.getString(0))), DayOfTheWeek.valueOfInt(Integer.parseInt(cursor.getString(1)))));
+                scheduleList.add(new Schedule(getWorkoutByIDWithExercises(Integer.parseInt(cursor.getString(0))), DayOfTheWeek.valueOfInt(Integer.parseInt(cursor.getString(1)))));
             }while(cursor.moveToNext());
         }
 
         return scheduleList;
     }
 
+    private Exercise rewriteDefaultRepsWithCustomRepsIfSet(Exercise exercise, Workout_X_Exercise reference){
+        if(reference.getCustomReps() != exercise.getDefaultReps()) exercise.setDefaultReps(reference.getCustomReps());
+        if(reference.getCustomWeightKG() != exercise.getDefaultWeightKG()) exercise.setDefaultWeightKG(reference.getCustomWeightKG());
+        if(reference.getCustomWeightLBS() != exercise.getDefaultWeightLBS()) exercise.setDefaultWeightKG(reference.getCustomWeightLBS());
+        if(reference.getCustomDistanceM() != exercise.getDefaultDistanceM()) exercise.setDefaultDistanceM(reference.getCustomDistanceM());
 
+        return exercise;
+    }
 }

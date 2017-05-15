@@ -196,7 +196,13 @@ public class DBDefaultFiller {
         exerciseListAbs.add(sqlWrapper.getExerciseByID(13));
         exerciseListAbs.add(sqlWrapper.getExerciseByID(10));
         exerciseListAbs.add(sqlWrapper.getExerciseByID(14));
+
         exerciseListAbs.add(sqlWrapper.getExerciseByID(9));
+        //Test for Custom Reps
+        /*Exercise exec = sqlWrapper.getExerciseByID(9);
+        exec.setDefaultReps(40);
+        exerciseListAbs.add(exec);*/
+
 
         testWorkoutAbs.setExerciseList(exerciseListAbs);
 
