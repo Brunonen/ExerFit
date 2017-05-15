@@ -17,6 +17,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.bruno.exerfit.R;
+import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.Database.DBDefaultFiller;
+import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.Database.SQLWrapper;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,10 +28,42 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle mDrawerToggle;
     private String mActivityTitle;
 
+    private String selectLocation;
+    private String selectCategory;
+
+
+    public String getSelectedLocation(){
+        return this.selectLocation;
+    }
+
+    public String getSelectedCategory(){
+        return this.selectCategory;
+    }
+
+    public void setSelectedLocation(String location){
+        this.selectLocation = location;
+    }
+
+    public void setSelectetCategory(String category){
+        this.selectCategory = category;
+
+    }
+
+    public void changeFragment(Fragment fragment){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).addToBackStack("LastFragment").commit();
+        mDrawerLayout.closeDrawer(mDrawerList);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
+
+        //THIS IS FOR TESTING! LATER WILL BE REPLACED WITH DB SETUP ON INSTALLATION
+        SQLWrapper sqlWrapper = new SQLWrapper(this);
+        DBDefaultFiller db = new DBDefaultFiller(this);
+        db.fillDataBaseWithDefaultData();
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
@@ -50,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     // Select Workout
                     case 1:
-                        fragment = new SelectWorkoutFragment();
+                        fragment = new SelectLocationFragment();
                         break;
                     //Workout
                     case 2:
@@ -72,9 +106,12 @@ public class MainActivity extends AppCompatActivity {
                // Toast.makeText(MainActivity.this, String.valueOf(position) , Toast.LENGTH_SHORT).show();
                 // Insert the fragment by replacing any existing fragment
                 //Fragment fragment = new PreWorkoutFragment();
+
+                changeFragment(fragment);
+                /*
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).addToBackStack("LastFragment").commit();
-                mDrawerLayout.closeDrawer(mDrawerList);
+                mDrawerLayout.closeDrawer(mDrawerList);*/
 
             }
         });
