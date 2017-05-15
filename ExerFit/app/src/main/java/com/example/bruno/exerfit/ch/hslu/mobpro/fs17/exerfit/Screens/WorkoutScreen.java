@@ -32,6 +32,7 @@ public class WorkoutScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout_screen);
 
+        //THIS IS FOR TESTING! LATER WILL BE REPLACED WITH DB SETUP ON INSTALLATION
         SQLWrapper sqlWrapper = new SQLWrapper(this);
         DBDefaultFiller db = new DBDefaultFiller(this);
         db.fillDataBaseWithDefaultData();
