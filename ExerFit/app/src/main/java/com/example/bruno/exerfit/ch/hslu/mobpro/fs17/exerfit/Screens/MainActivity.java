@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.bruno.exerfit.R;
 import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.Database.DBDefaultFiller;
@@ -29,23 +28,30 @@ public class MainActivity extends AppCompatActivity {
     private String mActivityTitle;
 
     private String selectLocation;
-    private String selectCategory;
+    private String selectType;
+    private String selectedCategory;
 
 
     public String getSelectedLocation(){
         return this.selectLocation;
     }
 
-    public String getSelectedCategory(){
-        return this.selectCategory;
+    public String getSelectedType(){
+        return this.selectType;
     }
+
+    public String getSelectedCategory() {return this.selectedCategory; }
 
     public void setSelectedLocation(String location){
         this.selectLocation = location;
     }
 
-    public void setSelectetCategory(String category){
-        this.selectCategory = category;
+    public void setSelectedCategory(String category){
+        this.selectedCategory = category;
+    }
+
+    public void setSelectetCategory(String type){
+        this.selectType = type;
 
     }
 

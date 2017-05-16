@@ -1,7 +1,10 @@
 package com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.Screens;
 
+import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,8 +57,13 @@ public class CreateWorkoutFragment extends Fragment {
         addExerciseToListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                exerciseList.add("Test");
-                exerciseAdapter.notifyDataSetChanged();
+                Fragment fragment;
+                fragment = new SelectExerciseForWorkoutFragment();
+
+                final FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.replace(R.id.content_frame, fragment).addToBackStack("LastFragment").commit();
+
+
             }
         });
 
@@ -151,6 +159,15 @@ public class CreateWorkoutFragment extends Fragment {
             }
         });
 
+    }
+
+    public String getCategoryFromSpinner(){
+        return this.categorySpinner.getSelectedItem().toString();
+    }
+
+    public void addExerciseToWorkoutList(String exerciseName){
+        this.exerciseList.add(exerciseName);
+        this.exerciseAdapter.notifyDataSetChanged();
     }
 
 }

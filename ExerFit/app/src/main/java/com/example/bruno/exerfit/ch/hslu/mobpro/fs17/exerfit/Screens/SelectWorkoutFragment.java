@@ -1,14 +1,12 @@
 package com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.Screens;
 
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TabHost;
 
 import com.example.bruno.exerfit.R;
 import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.DTO.Workout;
@@ -35,7 +33,7 @@ public class SelectWorkoutFragment extends Fragment {
         MainActivity activity = (MainActivity) getActivity();
         String location;
         String category;
-        category = activity.getSelectedCategory();
+        category = activity.getSelectedType();
         location = activity.getSelectedLocation();
 
         SQLWrapper db = new SQLWrapper(getActivity());

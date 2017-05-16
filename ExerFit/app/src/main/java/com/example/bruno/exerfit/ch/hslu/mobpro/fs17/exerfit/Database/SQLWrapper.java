@@ -443,6 +443,40 @@ public class SQLWrapper extends SQLiteOpenHelper {
         return exerciseList;
     }
 
+    public List<Exercise> getExercisesByCategoryID(int categoryID){
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<Exercise> exerciseList = new ArrayList<Exercise>();
+        String sqlSelect = "SELECT * FROM " + TABLE_EXERCISES + " WHERE " + EXERCISE_CATEGORY + " = " + categoryID;
+        Cursor cursor = db.rawQuery(sqlSelect, null);
+        if(cursor.moveToFirst()){
+            do{
+                exerciseList.add(new Exercise(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2),
+                        Integer.parseInt(cursor.getString(3)), getLocationByID(Integer.parseInt(cursor.getString(4))),
+                        getCategoryByID(Integer.parseInt(cursor.getString(5))), Integer.parseInt(cursor.getString(6)),
+                        Integer.parseInt(cursor.getString(7)), Integer.parseInt(cursor.getString(8)), Integer.parseInt(cursor.getString(9))));
+            }while(cursor.moveToNext());
+        }
+
+        return exerciseList;
+    }
+
+    public List<Exercise> getExercisesByCategoryDescirption(String categoryDesc){
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<Exercise> exerciseList = new ArrayList<Exercise>();
+        String sqlSelect = "SELECT * FROM " + TABLE_EXERCISES + " WHERE " + EXERCISE_CATEGORY + " = " + getCategoryByDescription(categoryDesc);
+        Cursor cursor = db.rawQuery(sqlSelect, null);
+        if(cursor.moveToFirst()){
+            do{
+                exerciseList.add(new Exercise(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2),
+                        Integer.parseInt(cursor.getString(3)), getLocationByID(Integer.parseInt(cursor.getString(4))),
+                        getCategoryByID(Integer.parseInt(cursor.getString(5))), Integer.parseInt(cursor.getString(6)),
+                        Integer.parseInt(cursor.getString(7)), Integer.parseInt(cursor.getString(8)), Integer.parseInt(cursor.getString(9))));
+            }while(cursor.moveToNext());
+        }
+
+        return exerciseList;
+    }
+
     public Exercise getExerciseByID(int exerciseID){
         SQLiteDatabase db = this.getReadableDatabase();
         Exercise exercise = new Exercise();
@@ -457,6 +491,8 @@ public class SQLWrapper extends SQLiteOpenHelper {
         }
         return exercise;
     }
+
+
 
     public List<Workout_X_Exercise> getAllWorkoutReferences(){
         SQLiteDatabase db = this.getReadableDatabase();
