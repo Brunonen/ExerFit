@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -61,5 +62,18 @@ public class PreWorkoutFragment extends Fragment {
         }else{
             Toast.makeText(this.getActivity() ,"No Workout Selected",  Toast.LENGTH_SHORT).show();
         }
+
+        final ListView mExerciseList = (ListView) root.findViewById(R.id.exerciseList);
+        mExerciseList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String selectedExercise = mExerciseList.getItemAtPosition(position).toString();
+                Fragment fragment;
+                fragment = new ExerciseInfoFragment();
+                MainActivity activity = (MainActivity) getActivity();
+                activity.setSelectedExercise(selectedExercise);
+                activity.changeFragment(fragment);
+            }
+        });
     }
 }

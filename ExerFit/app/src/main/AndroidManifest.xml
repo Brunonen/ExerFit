@@ -28,7 +28,8 @@
         <activity android:name=".ch.hslu.mobpro.fs17.exerfit.Screens.CreateWorkoutFragment" />
         <activity android:name=".ch.hslu.mobpro.fs17.exerfit.Screens.ScheduleWorkoutFragment" />
         <activity android:name=".ch.hslu.mobpro.fs17.exerfit.Screens.SelectLocationFragment" />
-        <activity android:name=".ch.hslu.mobpro.fs17.exerfit.Screens.SelectCategoryFragment"></activity>
+        <activity android:name=".ch.hslu.mobpro.fs17.exerfit.Screens.SelectCategoryFragment" />
+        <activity android:name=".ch.hslu.mobpro.fs17.exerfit.Screens.ExerciseInfoFragment"></activity>
     </application>
 
 </manifest>
