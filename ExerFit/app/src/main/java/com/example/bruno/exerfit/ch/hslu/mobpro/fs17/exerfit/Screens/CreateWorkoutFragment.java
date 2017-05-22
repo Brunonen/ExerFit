@@ -16,6 +16,7 @@ import android.widget.Spinner;
 
 import com.example.bruno.exerfit.R;
 import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.DTO.Category;
+import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.DTO.Exercise;
 import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.DTO.Location;
 import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.DTO.Type;
 import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.Database.SQLWrapper;
@@ -32,6 +33,8 @@ public class CreateWorkoutFragment extends Fragment {
     ArrayList<String> exerciseList = new ArrayList<String>();
     ArrayAdapter<String> exerciseAdapter;
     CreateWorkoutFragment thisFragment;
+    ArrayList<Exercise> exerciseListDTO = new ArrayList<>();
+    SQLWrapper sqlWrapper;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,6 +42,7 @@ public class CreateWorkoutFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.activity_create_workout_fragment, container, false);
         thisFragment = this;
+        sqlWrapper = new SQLWrapper(getActivity());
         categorySpinner = (Spinner) rootView.findViewById(R.id.categorySpinner);
         typeSpinner = (Spinner) rootView.findViewById(R.id.typeSpinner);
         locationSpinner = (Spinner) rootView.findViewById(R.id.locationSpinner);
@@ -64,8 +68,6 @@ public class CreateWorkoutFragment extends Fragment {
 
                 final FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(R.id.content_frame, fragment).addToBackStack("LastFragment").commit();
-
-
             }
         });
 
@@ -73,8 +75,6 @@ public class CreateWorkoutFragment extends Fragment {
     }
 
     private void loadSpinnerDataLocation(){
-        final SQLWrapper sqlWrapper = new SQLWrapper(getActivity());
-
         // Spinner Drop down elements
         List<Location> locations = sqlWrapper.getAllLocations();
 
@@ -95,7 +95,6 @@ public class CreateWorkoutFragment extends Fragment {
     }
 
     private void loadSpinnerDataCategory(){
-        final SQLWrapper sqlWrapper = new SQLWrapper(getActivity());
 
         // Spinner Drop down elements
         List<Category> categories = sqlWrapper.getAllCategories();
@@ -122,8 +121,6 @@ public class CreateWorkoutFragment extends Fragment {
     }
 
     private void loadSpinnerDataType(){
-        final SQLWrapper sqlWrapper = new SQLWrapper(getActivity());
-
         // Spinner Drop down elements
         List<Type> types = sqlWrapper.getAllTypes();
 
@@ -168,8 +165,12 @@ public class CreateWorkoutFragment extends Fragment {
     }
 
     public void addExerciseToWorkoutList(String exerciseName){
+
         this.exerciseList.add(exerciseName);
+        this.exerciseListDTO.add(sqlWrapper.getExerciseByID(1));
         this.exerciseAdapter.notifyDataSetChanged();
+
+
     }
 
 }

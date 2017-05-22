@@ -32,6 +32,7 @@ public class SelectExerciseForWorkoutFragment extends Fragment implements Adapte
     ArrayList<String> exerciseList = new ArrayList<String>();
     ArrayAdapter<String> exerciseAdapter;
     CreateWorkoutFragment parentFragment;
+    String selectedExercise;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,12 +52,22 @@ public class SelectExerciseForWorkoutFragment extends Fragment implements Adapte
 
         this.exerciseListView.setAdapter(this.exerciseAdapter);
         exerciseListView.setChoiceMode( AbsListView.CHOICE_MODE_SINGLE);
+        exerciseListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selectedExercise = exerciseListView.getItemAtPosition(position).toString();
+            }
+        });
+
         final Button addExerciseToListButton = (Button) rootView.findViewById(R.id.addExercise);
         addExerciseToListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                //System.out.println(exerciseListView.getSelectedItem());
-                parentFragment.addExerciseToWorkoutList("test");
+                if(!selectedExercise.equals("")) {
+                    parentFragment.addExerciseToWorkoutList(selectedExercise);
+                    FragmentManager fragmentManager = getFragmentManager();
+                    fragmentManager.popBackStackImmediate();
+                }
             }
         });
 
@@ -115,18 +126,12 @@ public class SelectExerciseForWorkoutFragment extends Fragment implements Adapte
             exerciseList = sqlWrapper.getAllExercises();
         }
 
-
-
-        for(Exercise exec : exerciseList){
-            this.exerciseList.add(exec.getName());
-            this.exerciseAdapter.notifyDataSetChanged();
-            //parentFragment.addExerciseToWorkoutList(exec.getName());
+        if(exerciseList.size() > 0) {
+            for (Exercise exec : exerciseList) {
+                this.exerciseList.add(exec.getName());
+            }
         }
-
-        for(String s : this.exerciseList){
-            System.out.println(s);
-        }
-
+        this.exerciseAdapter.notifyDataSetChanged();
     }
 
     public void setParentFragment(CreateWorkoutFragment parentFragment){

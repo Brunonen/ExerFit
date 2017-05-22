@@ -492,7 +492,20 @@ public class SQLWrapper extends SQLiteOpenHelper {
         return exercise;
     }
 
+    public Exercise getExerciseByName(String exerciseName){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Exercise exercise = new Exercise();
+        String sqlSelect = "SELECT * FROM " + TABLE_EXERCISES + " WHERE " + EXERCISE_NAME + " = " + exerciseName;
+        Cursor cursor = db.rawQuery(sqlSelect, null);
+        if(cursor.moveToFirst()){
 
+            return new Exercise(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2),
+                    Integer.parseInt(cursor.getString(3)), getLocationByID(Integer.parseInt(cursor.getString(4))),
+                    getCategoryByID(Integer.parseInt(cursor.getString(5))), Integer.parseInt(cursor.getString(6)),
+                    Integer.parseInt(cursor.getString(7)), Integer.parseInt(cursor.getString(8)), Integer.parseInt(cursor.getString(9)));
+        }
+        return exercise;
+    }
 
     public List<Workout_X_Exercise> getAllWorkoutReferences(){
         SQLiteDatabase db = this.getReadableDatabase();
@@ -588,6 +601,28 @@ public class SQLWrapper extends SQLiteOpenHelper {
 
             return new Workout(Integer.parseInt(cursor.getString(0)), cursor.getString(1), getTypeByID(Integer.parseInt(cursor.getString(2))),
                     getLocationByID(Integer.parseInt(cursor.getString(3))), null , Integer.parseInt(cursor.getString(4)),
+                    Integer.parseInt(cursor.getString(5)), Integer.parseInt(cursor.getString(6)));
+        }
+        return workout;
+    }
+
+    public Workout getWorkoutByNameWithExercises(String workoutName){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Workout workout = new Workout();
+        String sqlSelect = "SELECT * FROM " + TABLE_WORKOUTS + " WHERE " + WORKOUTS_NAME + " = " + workoutName;
+        Cursor cursor = db.rawQuery(sqlSelect, null);
+        if(cursor.moveToFirst()){
+
+            //Get Corresponing Exercises
+            List<Workout_X_Exercise> referenceList = getExercisesOfWorkout(Integer.parseInt(cursor.getString(0)));
+            List<Exercise> exerciseList = new ArrayList<>();
+
+            for(Workout_X_Exercise reference : referenceList){
+                exerciseList.add(rewriteDefaultRepsWithCustomRepsIfSet(reference.getExercise(), reference));
+            }
+
+            return new Workout(Integer.parseInt(cursor.getString(0)), cursor.getString(1), getTypeByID(Integer.parseInt(cursor.getString(2))),
+                    getLocationByID(Integer.parseInt(cursor.getString(3))), exerciseList , Integer.parseInt(cursor.getString(4)),
                     Integer.parseInt(cursor.getString(5)), Integer.parseInt(cursor.getString(6)));
         }
         return workout;
