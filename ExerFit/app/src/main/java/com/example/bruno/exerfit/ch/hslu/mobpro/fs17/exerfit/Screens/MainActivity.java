@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private String selectLocation;
     private String selectType;
     private String selectedCategory;
+    private String selectedWorkout;
 
 
     public String getSelectedLocation(){
@@ -50,10 +51,11 @@ public class MainActivity extends AppCompatActivity {
         this.selectedCategory = category;
     }
 
-    public void setSelectetCategory(String type){
-        this.selectType = type;
+    public void setSelectetCategory(String type){this.selectType = type; }
 
-    }
+    public String getSelectedWorkout(){return  this.selectedWorkout;}
+
+    public void setSelectedWorkout(String selectedWorkout){this.selectedWorkout = selectedWorkout;}
 
     public void changeFragment(Fragment fragment){
         FragmentManager fragmentManager = getSupportFragmentManager();
