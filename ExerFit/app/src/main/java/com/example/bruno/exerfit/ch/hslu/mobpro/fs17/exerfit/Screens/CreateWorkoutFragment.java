@@ -31,13 +31,14 @@ public class CreateWorkoutFragment extends Fragment {
     ListView exerciseListView;
     ArrayList<String> exerciseList = new ArrayList<String>();
     ArrayAdapter<String> exerciseAdapter;
+    CreateWorkoutFragment thisFragment;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.activity_create_workout_fragment, container, false);
-
+        thisFragment = this;
         categorySpinner = (Spinner) rootView.findViewById(R.id.categorySpinner);
         typeSpinner = (Spinner) rootView.findViewById(R.id.typeSpinner);
         locationSpinner = (Spinner) rootView.findViewById(R.id.locationSpinner);
@@ -57,8 +58,9 @@ public class CreateWorkoutFragment extends Fragment {
         addExerciseToListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                Fragment fragment;
+                SelectExerciseForWorkoutFragment fragment;
                 fragment = new SelectExerciseForWorkoutFragment();
+                fragment.setParentFragment(thisFragment);
 
                 final FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(R.id.content_frame, fragment).addToBackStack("LastFragment").commit();

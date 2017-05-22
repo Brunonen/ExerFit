@@ -463,7 +463,7 @@ public class SQLWrapper extends SQLiteOpenHelper {
     public List<Exercise> getExercisesByCategoryDescirption(String categoryDesc){
         SQLiteDatabase db = this.getReadableDatabase();
         List<Exercise> exerciseList = new ArrayList<Exercise>();
-        String sqlSelect = "SELECT * FROM " + TABLE_EXERCISES + " WHERE " + EXERCISE_CATEGORY + " = " + getCategoryByDescription(categoryDesc);
+        String sqlSelect = "SELECT * FROM " + TABLE_EXERCISES + " WHERE " + EXERCISE_CATEGORY + " = " + getCategoryByDescription(categoryDesc).getCategoryID();
         Cursor cursor = db.rawQuery(sqlSelect, null);
         if(cursor.moveToFirst()){
             do{

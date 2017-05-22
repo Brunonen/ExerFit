@@ -67,8 +67,14 @@
 
                 <ListView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="261dp"
                     android:id="@+id/selectExercisesForWorkoutList"/>
+
+                <Button
+                    android:text="Add Exercise"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/addExercise" />
 
             </LinearLayout>
         </ScrollView>
