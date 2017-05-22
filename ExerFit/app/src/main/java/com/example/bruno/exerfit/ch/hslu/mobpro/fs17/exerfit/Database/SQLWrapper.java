@@ -495,7 +495,7 @@ public class SQLWrapper extends SQLiteOpenHelper {
     public Exercise getExerciseByName(String exerciseName){
         SQLiteDatabase db = this.getReadableDatabase();
         Exercise exercise = new Exercise();
-        String sqlSelect = "SELECT * FROM " + TABLE_EXERCISES + " WHERE " + EXERCISE_NAME + " = " + exerciseName;
+        String sqlSelect = "SELECT * FROM " + TABLE_EXERCISES + " WHERE " + EXERCISE_NAME + " = '" + exerciseName + "'";
         Cursor cursor = db.rawQuery(sqlSelect, null);
         if(cursor.moveToFirst()){
 
@@ -609,7 +609,7 @@ public class SQLWrapper extends SQLiteOpenHelper {
     public Workout getWorkoutByNameWithExercises(String workoutName){
         SQLiteDatabase db = this.getReadableDatabase();
         Workout workout = new Workout();
-        String sqlSelect = "SELECT * FROM " + TABLE_WORKOUTS + " WHERE " + WORKOUTS_NAME + " = " + workoutName;
+        String sqlSelect = "SELECT * FROM " + TABLE_WORKOUTS + " WHERE " + WORKOUTS_NAME + " = '" + workoutName + "'";
         Cursor cursor = db.rawQuery(sqlSelect, null);
         if(cursor.moveToFirst()){
 

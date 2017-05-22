@@ -167,9 +167,8 @@ public class CreateWorkoutFragment extends Fragment {
     public void addExerciseToWorkoutList(String exerciseName){
 
         this.exerciseList.add(exerciseName);
-        this.exerciseListDTO.add(sqlWrapper.getExerciseByID(1));
+        this.exerciseListDTO.add(sqlWrapper.getExerciseByName(exerciseName));
         this.exerciseAdapter.notifyDataSetChanged();
-
 
     }
 
