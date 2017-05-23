@@ -28,10 +28,19 @@ public class ExerciseInfoFragment extends Fragment {
 
         MainActivity activity = (MainActivity) getActivity();
         String exerciseName = activity.getSelectedExercise();
+        String workoutName = activity.getSelectedWorkout();
 
         if (exerciseName != null) {
             SQLWrapper db = new SQLWrapper(getActivity());
             Exercise exercise = db.getExerciseByName(exerciseName);
+
+            Workout workout = db.getWorkoutByNameWithExercises(workoutName);
+
+            for(Exercise exec : workout.getExerciseList()){
+                if(exec.getName().equals(exerciseName)){
+                    exercise = exec;
+                }
+            }
 
             TextView exerciseTitle = (TextView) root.findViewById(R.id.exerciseName);
             exerciseTitle.setText(exerciseName);

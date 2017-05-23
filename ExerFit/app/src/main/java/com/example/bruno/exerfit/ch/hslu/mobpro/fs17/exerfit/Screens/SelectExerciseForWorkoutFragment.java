@@ -74,9 +74,6 @@ public class SelectExerciseForWorkoutFragment extends Fragment implements Adapte
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectedExercise = exerciseListView.getItemAtPosition(position).toString();
                 Exercise exerciseSelected = sqlWrapper.getExerciseByName(selectedExercise);
-                System.out.println(exerciseSelected.getName() + "\nReps: " + exerciseSelected.getDefaultReps() +
-                "\nDistance: " + exerciseSelected.getDefaultDistanceM() + "\nKG: " + exerciseSelected.getDefaultWeightKG() +
-                "\nLBS: " + exerciseSelected.getDefaultWeightLBS());
                 int repPosition = repetitionsList.indexOf("" + exerciseSelected.getDefaultReps());
                 int distancePosition = distanceList.indexOf("" + exerciseSelected.getDefaultDistanceM());
                 int weightPositionKG = weightListKG.indexOf("" + exerciseSelected.getDefaultWeightKG());
