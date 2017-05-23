@@ -27,11 +27,6 @@
                     android:textSize="30sp"
                     android:textColor="@color/colorPrimaryDark" />
 
-                <SearchView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="20dp" />
-
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
@@ -67,14 +62,114 @@
 
                 <ListView
                     android:layout_width="match_parent"
-                    android:layout_height="261dp"
-                    android:id="@+id/selectExercisesForWorkoutList"/>
+                    android:id="@+id/selectExercisesForWorkoutList"
+                    android:layout_weight="0.24"
+                    android:layout_height="180dp" />
+
+                <TextView
+                    android:text="Custom Properties (optional)"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textViewCustoms"
+                    android:layout_weight="1"
+                    android:layout_marginTop="40dp"
+                    android:textSize="18sp"
+                    android:textColor="@color/colorPrimaryDark" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:id="@+id/textView18"
+                    android:background="@color/colorPrimary"
+                    android:layout_height="3dp"
+                    android:layout_marginTop="5dp" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="20dp">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:text="Reps:"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textViewReps"
+                            android:layout_weight="1"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="18sp" />
+
+                        <Spinner
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/spinnerReps"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:text="Distance (m):"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textViewDistance"
+                            android:layout_weight="1"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="18sp" />
+
+                        <Spinner
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/spinnerDistance"
+                            android:layout_weight="1" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="20dp">
+
+                        <TextView
+                            android:text="Weight (KG):"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textViewWeightKG"
+                            android:layout_weight="1"
+                            android:textSize="18sp"
+                            android:textColor="@color/colorPrimaryDark" />
+
+                        <Spinner
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/spinnerWeightKG"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:text="Weight (LBS):"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView17"
+                            android:layout_weight="1"
+                            android:textSize="18sp"
+                            android:textColor="@color/colorPrimaryDark" />
+
+                        <Spinner
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/spinnerWeightLBS"
+                            android:layout_weight="1" />
+                    </LinearLayout>
+                </LinearLayout>
 
                 <Button
                     android:text="Add Exercise"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/addExercise" />
+                    android:id="@+id/addExercise"
+                    android:elevation="10dp"
+                    android:layout_marginTop="20dp" />
 
             </LinearLayout>
         </ScrollView>
