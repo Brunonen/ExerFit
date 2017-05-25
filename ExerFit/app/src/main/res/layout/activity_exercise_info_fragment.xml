@@ -44,14 +44,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_weight="1"
-                        android:text="Descreption" />
+                        android:text="Description" />
 
                 </LinearLayout>
 
                 <ScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
+                    android:layout_height="165dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -63,7 +62,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:layout_weight="1"
+                            android:layout_weight="20.67"
                             android:lines="6"
                             android:text="test" />
                     </LinearLayout>
@@ -86,30 +85,6 @@
 
                     <TextView
                         android:id="@+id/exerciseIntensitiy"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_weight="1"
-                        android:text="test" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="15dp"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textView18"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_weight="1"
-                        android:text="Location" />
-
-                    <TextView
-                        android:id="@+id/exerciseLocation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -170,7 +145,8 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="15dp"
                     android:layout_weight="1"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:id="@+id/linearLayoutWeightKG">
 
                     <TextView
                         android:id="@+id/textView26"
@@ -194,7 +170,8 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="15dp"
                     android:layout_weight="1"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:id="@+id/linearLayoutWeightLBS">
 
                     <TextView
                         android:id="@+id/textView28"
@@ -218,7 +195,8 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="15dp"
                     android:layout_weight="1"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:id="@+id/linearLayoutDistance">
 
                     <TextView
                         android:id="@+id/textView30"

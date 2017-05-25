@@ -48,9 +48,6 @@ public class ExerciseInfoFragment extends Fragment {
             TextView exerciseDesc = (TextView) root.findViewById(R.id.exerciseDescription);
             exerciseDesc.setText(exercise.getDescription());
 
-            TextView exerciseLoc = (TextView) root.findViewById(R.id.exerciseLocation);
-            exerciseLoc.setText(exercise.getLocation().getDescription());
-
             TextView exerciseCat = (TextView) root.findViewById(R.id.exerciseCategory);
             exerciseCat.setText(exercise.getCategory().getDescription());
 
@@ -61,13 +58,32 @@ public class ExerciseInfoFragment extends Fragment {
             exerciseInten.setText(String.valueOf(exercise.getIntensity()));
 
             TextView exerciseKg = (TextView) root.findViewById(R.id.exerciseWeightKg);
-            exerciseKg.setText(String.valueOf(exercise.getDefaultWeightKG()));
+            View layout = root.findViewById(R.id.linearLayoutWeightKG);
+            if(exercise.getDefaultWeightKG() > 0) {
+                layout.setVisibility(View.VISIBLE);
+                exerciseKg.setText(String.valueOf(exercise.getDefaultWeightKG()));
+            }else{
+                layout.setVisibility(View.GONE);
+            }
 
             TextView exerciseLbs = (TextView) root.findViewById(R.id.exerciseLbs);
-            exerciseLbs.setText(String.valueOf(exercise.getDefaultWeightLBS()));
+            layout = root.findViewById(R.id.linearLayoutWeightLBS);
+            if(exercise.getDefaultWeightLBS() > 0){
+                layout.setVisibility(View.VISIBLE);
+                exerciseLbs.setText(String.valueOf(exercise.getDefaultWeightLBS()));
+            }else{
+                layout.setVisibility(View.GONE);
+            }
+
 
             TextView exerciseDist = (TextView) root.findViewById(R.id.exerciseDistance);
-            exerciseDist.setText(String.valueOf(exercise.getDefaultDistanceM()));
+            layout = root.findViewById(R.id.linearLayoutDistance);
+            if(exercise.getDefaultDistanceM() > 0) {
+                layout.setVisibility(View.VISIBLE);
+                exerciseDist.setText(String.valueOf(exercise.getDefaultDistanceM()));
+            }else{
+                layout.setVisibility(View.GONE);
+            }
 
 
         }
