@@ -54,6 +54,14 @@ public class PreWorkoutFragment extends Fragment {
                 exersiseString.add(exercise.getName());
             }
 
+            TextView setsInfo = (TextView) root.findViewById(R.id.textViewSets);
+            setsInfo.setText("" + workout.getSets());
+
+            TextView restBetweenSetsInfo = (TextView) root.findViewById(R.id.textRestBetweenSets);
+            restBetweenSetsInfo.setText("" + workout.getRestBetweenSets());
+
+            TextView restBetweenExercisesInfo = (TextView) root.findViewById(R.id.textRestBetweenExercises);
+            restBetweenExercisesInfo.setText("" + workout.getRestBetweenExercises());
 
             final ListView listView = (ListView) root.findViewById(R.id.exerciseList);
             ArrayAdapter<String> myarrayAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_list_item_1, exersiseString);
