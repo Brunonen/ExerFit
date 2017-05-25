@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 
 import com.example.bruno.exerfit.R;
+import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.Adapters.CustomAdapterExercises;
 import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.DTO.Exercise;
 import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.DTO.Workout;
 import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.Database.SQLWrapper;
@@ -49,11 +50,6 @@ public class PreWorkoutFragment extends Fragment {
             Workout workout = db.getWorkoutByNameWithExercises(workoutName);
             List<Exercise> excersiseList = workout.getExerciseList();
 
-            List<String> exersiseString = new ArrayList<>();
-
-            for (Exercise exercise : excersiseList) {
-                exersiseString.add(exercise.getName());
-            }
 
             TextView setsInfo = (TextView) root.findViewById(R.id.textViewSets);
             setsInfo.setText("" + workout.getSets());
@@ -64,10 +60,12 @@ public class PreWorkoutFragment extends Fragment {
             TextView restBetweenExercisesInfo = (TextView) root.findViewById(R.id.textRestBetweenExercises);
             restBetweenExercisesInfo.setText("" + workout.getRestBetweenExercises());
 
-            final ListView listView = (ListView) root.findViewById(R.id.exerciseList);
-            ArrayAdapter<String> myarrayAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_list_item_1, exersiseString);
+            ListView listView = (ListView) root.findViewById(R.id.exerciseList);
 
-            listView.setAdapter(myarrayAdapter);
+            CustomAdapterExercises adapter = new CustomAdapterExercises (activity, excersiseList);
+
+            listView.setAdapter(adapter);
+
         }else{
             Toast.makeText(this.getActivity() ,"No Workout Selected",  Toast.LENGTH_SHORT).show();
         }
@@ -76,11 +74,11 @@ public class PreWorkoutFragment extends Fragment {
         mExerciseList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String selectedExercise = mExerciseList.getItemAtPosition(position).toString();
+                Exercise selectedExercise = (Exercise)mExerciseList.getItemAtPosition(position);
                 Fragment fragment;
                 fragment = new ExerciseInfoFragment();
                 MainActivity activity = (MainActivity) getActivity();
-                activity.setSelectedExercise(selectedExercise);
+                activity.setSelectedExercise(selectedExercise.getName());
                 activity.changeFragment(fragment);
             }
         });
