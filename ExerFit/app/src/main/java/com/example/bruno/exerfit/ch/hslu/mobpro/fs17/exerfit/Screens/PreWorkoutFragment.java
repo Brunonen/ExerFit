@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,12 +28,31 @@ import java.util.List;
 
 public class PreWorkoutFragment extends Fragment {
 
+    ArrayList<Integer> intensityDrawables = new ArrayList<>();
+    ImageView intensityLevelImage;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_pre_workout, container, false);
+
+        intensityDrawables.add(R.drawable.intensitybar_0);
+        intensityDrawables.add(R.drawable.intensitybar_1);
+        intensityDrawables.add(R.drawable.intensitybar_2);
+        intensityDrawables.add(R.drawable.intensitybar_3);
+        intensityDrawables.add(R.drawable.intensitybar_4);
+        intensityDrawables.add(R.drawable.intensitybar_5);
+        intensityDrawables.add(R.drawable.intensitybar_6);
+        intensityDrawables.add(R.drawable.intensitybar_7);
+        intensityDrawables.add(R.drawable.intensitybar_8);
+        intensityDrawables.add(R.drawable.intensitybar_9);
+        intensityDrawables.add(R.drawable.intensitybar_10);
+
+        intensityLevelImage = (ImageView) root.findViewById(R.id.imageViewIntensityLeveLWorkout);
+
+        intensityLevelImage.setImageResource(intensityDrawables.get(0));
+
         loadWorkout(root);
         return root;
     }
@@ -50,6 +70,14 @@ public class PreWorkoutFragment extends Fragment {
             Workout workout = db.getWorkoutByNameWithExercises(workoutName);
             List<Exercise> excersiseList = workout.getExerciseList();
 
+            int intensityLevelMed = 0;
+            for(Exercise exec : excersiseList){
+                intensityLevelMed += exec.getIntensity();
+            }
+
+            intensityLevelMed = intensityLevelMed / excersiseList.size();
+
+            intensityLevelImage.setImageResource(intensityDrawables.get(intensityLevelMed));
 
             TextView setsInfo = (TextView) root.findViewById(R.id.textViewSets);
             setsInfo.setText("" + workout.getSets());
