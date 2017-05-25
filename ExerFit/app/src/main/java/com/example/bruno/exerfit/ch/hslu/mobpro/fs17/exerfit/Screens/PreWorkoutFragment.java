@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -80,6 +81,16 @@ public class PreWorkoutFragment extends Fragment {
                 fragment = new ExerciseInfoFragment();
                 MainActivity activity = (MainActivity) getActivity();
                 activity.setSelectedExercise(selectedExercise);
+                activity.changeFragment(fragment);
+            }
+        });
+
+        final Button addExerciseToListButton = (Button) root.findViewById(R.id.buttonStartWorkout);
+        addExerciseToListButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                MainActivity activity = (MainActivity) getActivity();
+                Fragment fragment = new WorkoutFragment();
                 activity.changeFragment(fragment);
             }
         });

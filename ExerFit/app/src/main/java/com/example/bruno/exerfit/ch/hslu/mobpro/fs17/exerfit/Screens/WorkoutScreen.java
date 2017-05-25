@@ -50,7 +50,7 @@ public class WorkoutScreen extends AppCompatActivity {
                 R.layout.listitem_white_text, myStringArray);
 
         final String[] PROJECTION = new String[] {"Description",
-                "Reps", "Difficulty"};
+                "Reps", "Intensity"};
 
         ListView listView = (ListView) findViewById(R.id.List_View);
         listView.setAdapter(adapter);
