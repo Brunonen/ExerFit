@@ -124,7 +124,20 @@ public class CreateWorkoutFragment extends Fragment {
                                     Integer.parseInt(setsSpinner.getSelectedItem().toString()),
                                     Integer.parseInt(restSetsSpinner.getSelectedItem().toString()),
                                     Integer.parseInt(restExercisesSpinner.getSelectedItem().toString()));
-                            sqlWrapper.addWorkout(workout);
+                            int workoutID = sqlWrapper.addWorkout(workout);
+
+                            if(sqlWrapper.getWorkoutByIDNoExercises(workoutID).getName().equals(workout.getName())) {
+                                MainActivity activity = (MainActivity) getActivity();
+                                activity.setSelectedWorkout(workout.getName());
+
+                                Fragment fragment;
+                                fragment = new PreWorkoutFragment();
+
+                                activity.changeFragment(fragment);
+                            }else{
+                                Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_SHORT);
+                                System.out.println("Something went wrong");
+                            }
                         }else{
                             Toast.makeText(getActivity(), "Workout can't have no exercises!", Toast.LENGTH_SHORT);
                             System.out.println("Workout can't have no exercises!");
