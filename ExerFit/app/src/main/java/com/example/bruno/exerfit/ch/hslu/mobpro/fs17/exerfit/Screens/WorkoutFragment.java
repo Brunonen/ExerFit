@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.bruno.exerfit.R;
 import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.Adapters.CustomAdapterExercises;
@@ -23,6 +24,8 @@ public class WorkoutFragment extends Fragment {
     Workout selectedWorkout;
     SQLWrapper sqlWrapper;
     String selectedWorkoutString;
+    TextView setsOutOfSets;
+    int setsDone = 1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,6 +46,22 @@ public class WorkoutFragment extends Fragment {
         ListView listView = (ListView) root.findViewById(R.id.listViewDoWorkoutExercises);
         listView.setAdapter(adapter);
 
+        setsOutOfSets = (TextView) root.findViewById(R.id.textViewSetsOutOfSets);
+        updateSetCount();
+
+        final Button addExerciseToListButton = (Button) root.findViewById(R.id.setAndWorkoutButton);
+        addExerciseToListButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                setsDone++;
+                updateSetCount();
+            }
+        });
+
         return root;
+    }
+
+    private void updateSetCount(){
+        setsOutOfSets.setText(setsDone + " / " + selectedWorkout.getSets());
     }
 }
