@@ -6,16 +6,16 @@ package com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.DTO;
 
 public class Exercise {
 
-    private int exerciseID;
-    private String name;
-    private String description;
-    private int intensity;
+    private int exerciseID = 0;
+    private String name = "";
+    private String description = "";
+    private int intensity = 0;
     private Location location;
     private Category category;
-    private int defaultReps;
-    private int defaultWeightKG;
-    private int defaultWeightLBS;
-    private int defaultDistanceM;
+    private int defaultReps = 0;
+    private int defaultWeightKG = 0;
+    private int defaultWeightLBS = 0;
+    private int defaultDistanceM = 0;
 
     public Exercise() {
     }

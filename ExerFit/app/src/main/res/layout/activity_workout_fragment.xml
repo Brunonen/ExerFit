@@ -47,15 +47,18 @@
                         android:textSize="24sp"
                         android:textColor="@color/colorPrimaryDark"
                         android:textAlignment="viewStart" />
+
                 </LinearLayout>
 
-                <Chronometer
-                    android:id="@+id/chronometer5"
+                <TextView
+                    android:text="00:00"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/textViewWorkoutTimer"
+                    android:layout_weight="1"
                     android:textAlignment="center"
-                    android:textColor="@android:color/black"
-                    android:textSize="50sp" />
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="36sp" />
 
                 <ImageView
                     android:id="@+id/imageView3"
@@ -77,9 +80,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="Exercises:"
+                    android:text="Current:"
                     android:textColor="@android:color/black"
-                    android:textSize="18sp" />
+                    android:textSize="24sp"
+                    android:textStyle="normal|bold" />
 
                 <LinearLayout
                     android:orientation="horizontal"
@@ -87,42 +91,150 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:text="Exercise Name"
-                        android:layout_width="wrap_content"
+                        android:text="ExerciseName"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/textView23"
+                        android:id="@+id/textView31"
                         android:layout_weight="1" />
 
                     <TextView
-                        android:text="Reps"
-                        android:layout_width="wrap_content"
+                        android:text="Extra:"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/textView20"
+                        android:id="@+id/textView32"
                         android:layout_weight="1"
                         android:textAlignment="center" />
 
                     <TextView
-                        android:text="Intensity"
-                        android:layout_width="wrap_content"
+                        android:text="Reps:"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/textView19"
+                        android:id="@+id/textView33"
                         android:layout_weight="1"
                         android:textAlignment="center" />
                 </LinearLayout>
 
-                <ListView
-                    android:id="@+id/listViewDoWorkoutExercises"
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="208dp"
-                    android:layout_marginTop="5dp"
-                    android:textColor="@android:color/black" />
+                    android:layout_marginTop="25dp"
+                    android:layout_height="25dp">
+
+                    <TextView
+                        android:text="ExerciseName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/doWorkoutCurrentExerciseName"
+                        android:layout_weight="1"
+                        android:textSize="18sp"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <TextView
+                        android:text="Extra:"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/doWorkoutCurrentExerciseExtra"
+                        android:layout_weight="1"
+                        android:textAlignment="center"
+                        android:textSize="18sp"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <TextView
+                        android:text="Reps:"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/doWorkoutCurrentExerciseReps"
+                        android:layout_weight="1"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:text="Next Up:"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView38"
+                    android:textStyle="normal|bold"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="24sp"
+                    android:layout_marginTop="40dp" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:text="ExerciseName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView39"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:text="Extra:"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView40"
+                        android:layout_weight="1"
+                        android:textAlignment="center" />
+
+                    <TextView
+                        android:text="Reps:"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView41"
+                        android:layout_weight="1"
+                        android:textAlignment="center" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="25dp">
+
+                    <TextView
+                        android:text="ExerciseName:"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/doWorkoutNextExerciseName"
+                        android:layout_weight="1"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:text="Extra"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/doWorkoutNextExerciseExtra"
+                        android:layout_weight="1"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:text="Reps"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/doWorkoutNextExerciseReps"
+                        android:layout_weight="1"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp" />
+                </LinearLayout>
 
                 <Button
                     android:id="@+id/setAndWorkoutButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick="startWorkout"
-                    android:text="Start Workout" />
+                    android:text="Start Workout"
+                    android:layout_marginTop="40dp" />
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>
