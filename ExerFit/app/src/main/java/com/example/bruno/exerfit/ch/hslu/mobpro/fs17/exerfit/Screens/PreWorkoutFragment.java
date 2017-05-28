@@ -37,17 +37,17 @@ public class PreWorkoutFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_pre_workout, container, false);
 
-        intensityDrawables.add(R.drawable.intensitybar_0);
-        intensityDrawables.add(R.drawable.intensitybar_1);
-        intensityDrawables.add(R.drawable.intensitybar_2);
-        intensityDrawables.add(R.drawable.intensitybar_3);
-        intensityDrawables.add(R.drawable.intensitybar_4);
-        intensityDrawables.add(R.drawable.intensitybar_5);
-        intensityDrawables.add(R.drawable.intensitybar_6);
-        intensityDrawables.add(R.drawable.intensitybar_7);
-        intensityDrawables.add(R.drawable.intensitybar_8);
-        intensityDrawables.add(R.drawable.intensitybar_9);
-        intensityDrawables.add(R.drawable.intensitybar_10);
+        intensityDrawables.add(R.drawable.intensitybar0);
+        intensityDrawables.add(R.drawable.intensitybar1);
+        intensityDrawables.add(R.drawable.intensitybar2);
+        intensityDrawables.add(R.drawable.intensitybar3);
+        intensityDrawables.add(R.drawable.intensitybar4);
+        intensityDrawables.add(R.drawable.intensitybar5);
+        intensityDrawables.add(R.drawable.intensitybar6);
+        intensityDrawables.add(R.drawable.intensitybar7);
+        intensityDrawables.add(R.drawable.intensitybar8);
+        intensityDrawables.add(R.drawable.intensitybar9);
+        intensityDrawables.add(R.drawable.intensitybar10);
 
         intensityLevelImage = (ImageView) root.findViewById(R.id.imageViewIntensityLeveLWorkout);
 

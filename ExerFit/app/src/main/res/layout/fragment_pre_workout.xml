@@ -53,7 +53,7 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/intensitybar_0"
+                    app:srcCompat="@drawable/intensitybar0"
                     android:id="@+id/imageViewIntensityLeveLWorkout" />
 
                 <LinearLayout

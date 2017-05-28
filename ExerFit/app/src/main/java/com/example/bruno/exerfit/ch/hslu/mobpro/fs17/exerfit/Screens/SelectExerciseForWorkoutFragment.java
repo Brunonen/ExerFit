@@ -1,5 +1,6 @@
 package com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.Screens;
 
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -55,9 +56,17 @@ public class SelectExerciseForWorkoutFragment extends Fragment implements Adapte
         categorySpinner.setOnItemSelectedListener(this);
 
         repetitionsSpinner = (Spinner) rootView.findViewById(R.id.spinnerReps);
+        repetitionsSpinner.getBackground().setColorFilter(getResources().getColor(R.color.colorWhite), PorterDuff.Mode.SRC_ATOP);
+
         distanceSpinner = (Spinner) rootView.findViewById(R.id.spinnerDistance);
+        distanceSpinner.getBackground().setColorFilter(getResources().getColor(R.color.colorWhite), PorterDuff.Mode.SRC_ATOP);
+
         weightSpinnerKG = (Spinner) rootView.findViewById(R.id.spinnerWeightKG);
+        weightSpinnerKG.getBackground().setColorFilter(getResources().getColor(R.color.colorWhite), PorterDuff.Mode.SRC_ATOP);
+
         weightSpinnerLBS = (Spinner) rootView.findViewById(R.id.spinnerWeightLBS);
+        weightSpinnerLBS.getBackground().setColorFilter(getResources().getColor(R.color.colorWhite), PorterDuff.Mode.SRC_ATOP);
+
 
         exerciseListView = (ListView) rootView.findViewById(R.id.selectExercisesForWorkoutList);
 
@@ -130,7 +139,7 @@ public class SelectExerciseForWorkoutFragment extends Fragment implements Adapte
         // Creating adapter for spinner
 
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this.getActivity(),
-                android.R.layout.simple_spinner_item, labelsCategoriesString);
+                R.layout.spinner_item_white, labelsCategoriesString);
 
         // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -193,7 +202,7 @@ public class SelectExerciseForWorkoutFragment extends Fragment implements Adapte
         }
 
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_spinner_item, repetitionsList);
+                R.layout.spinner_item_white, repetitionsList);
 
         // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -208,7 +217,7 @@ public class SelectExerciseForWorkoutFragment extends Fragment implements Adapte
         }
 
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_spinner_item, distanceList);
+                R.layout.spinner_item_white, distanceList);
 
         // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -223,7 +232,7 @@ public class SelectExerciseForWorkoutFragment extends Fragment implements Adapte
         }
 
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_spinner_item, weightListKG);
+                R.layout.spinner_item_white, weightListKG);
 
         // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -238,7 +247,7 @@ public class SelectExerciseForWorkoutFragment extends Fragment implements Adapte
         }
 
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_spinner_item, weightListLBS);
+                R.layout.spinner_item_white, weightListLBS);
 
         // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
