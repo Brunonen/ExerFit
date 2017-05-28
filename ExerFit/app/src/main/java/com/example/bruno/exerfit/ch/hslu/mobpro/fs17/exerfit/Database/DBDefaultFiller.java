@@ -216,5 +216,25 @@ public class DBDefaultFiller {
         sqlWrapper.addSchedule(sqlWrapper.getWorkoutByID(1), DayOfTheWeek.TUESDAY);
         sqlWrapper.addSchedule(sqlWrapper.getWorkoutByID(3), DayOfTheWeek.TUESDAY);
         sqlWrapper.addSchedule(sqlWrapper.getWorkoutByID(2), DayOfTheWeek.FRIDAY);*/
+
+        //FOR DEMO
+        Workout demoWorkout = new Workout();
+        demoWorkout.setWorkoutID(0);
+        demoWorkout.setName("Demo Workout");
+        demoWorkout.setLocation(sqlWrapper.getLocationByID(2));
+        demoWorkout.setType(sqlWrapper.getTypeByID(1));
+        demoWorkout.setRestBetweenSets(20);
+        demoWorkout.setRestBetweenExercises(5);
+        demoWorkout.setSets(2);
+
+        List<Exercise> exerciseListDemo= new ArrayList<Exercise>();
+        exerciseListDemo.add(sqlWrapper.getExerciseByID(1));
+        exerciseListDemo.add(sqlWrapper.getExerciseByID(2));
+        exerciseListDemo.add(sqlWrapper.getExerciseByID(3));
+
+        demoWorkout.setExerciseList(exerciseListDemo);
+
+        sqlWrapper.addWorkout(demoWorkout);
+
     }
 }

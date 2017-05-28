@@ -107,7 +107,7 @@ public class WorkoutFragment extends Fragment {
                 if(workoutButton.getText().equals("Finish Workout")){
                     stopExerciseTimerThread();
                     workoutTimerThread.interrupt();
-                    System.out.println("Congratulations you finished your workout in : " + workoutDuration / 60 + ":" + workoutDuration % 60);
+                    System.out.println("Congratulations you finished your workout in : " + workoutDuration / 60 + " Minute  " + workoutDuration % 60 + "seconds");
                 }
                 if(workoutButton.getText().equals("Set")){
                     if(setsDone == selectedWorkout.getSets() && exerciseCount == (selectedWorkout.getExerciseList().size() - 2))
