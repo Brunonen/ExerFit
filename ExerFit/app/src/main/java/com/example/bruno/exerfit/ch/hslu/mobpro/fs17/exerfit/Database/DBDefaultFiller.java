@@ -221,7 +221,7 @@ public class DBDefaultFiller {
         Workout demoWorkout = new Workout();
         demoWorkout.setWorkoutID(0);
         demoWorkout.setName("Demo Workout");
-        demoWorkout.setLocation(sqlWrapper.getLocationByID(2));
+        demoWorkout.setLocation(sqlWrapper.getLocationByID(3));
         demoWorkout.setType(sqlWrapper.getTypeByID(1));
         demoWorkout.setRestBetweenSets(20);
         demoWorkout.setRestBetweenExercises(5);
@@ -229,8 +229,8 @@ public class DBDefaultFiller {
 
         List<Exercise> exerciseListDemo= new ArrayList<Exercise>();
         exerciseListDemo.add(sqlWrapper.getExerciseByID(1));
-        exerciseListDemo.add(sqlWrapper.getExerciseByID(2));
-        exerciseListDemo.add(sqlWrapper.getExerciseByID(3));
+        exerciseListDemo.add(sqlWrapper.getExerciseByID(5));
+        exerciseListDemo.add(sqlWrapper.getExerciseByID(8));
 
         demoWorkout.setExerciseList(exerciseListDemo);
 

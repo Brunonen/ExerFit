@@ -122,7 +122,7 @@ public class CreateWorkoutFragment extends Fragment {
         });
 
         workoutName = (TextView) rootView.findViewById(R.id.editTextWorkoutName);
-        System.out.println(workoutName);
+
         final Button saveWorkout = (Button) rootView.findViewById(R.id.buttonSaveWorkout);
         saveWorkout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,20 +148,16 @@ public class CreateWorkoutFragment extends Fragment {
 
                                 activity.changeFragment(fragment);
                             }else{
-                                Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_SHORT);
-                                System.out.println("Something went wrong");
+                                Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_SHORT).show();
                             }
                         }else{
-                            Toast.makeText(getActivity(), "Workout can't have no exercises!", Toast.LENGTH_SHORT);
-                            System.out.println("Workout can't have no exercises!");
+                            Toast.makeText(getActivity(), "Workout can't have no exercises!", Toast.LENGTH_SHORT).show();
                         }
                     }else{
-                        Toast.makeText(getActivity(), "A workout with that Name already exists!", Toast.LENGTH_SHORT);
-                        System.out.println("A workout with that Name already exists!");
+                        Toast.makeText(getActivity(), "A workout with that Name already exists!", Toast.LENGTH_SHORT).show();
                     }
                 }else{
-                    Toast.makeText(getActivity(), "Please enter a unique workout Name", Toast.LENGTH_SHORT);
-                    System.out.println("Please enter a unique workout Name");
+                    Toast.makeText(getActivity(), "Please enter a unique workout Name", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -311,7 +307,6 @@ public class CreateWorkoutFragment extends Fragment {
 
         int intensityLevel = 0;
         for(Exercise exec : exerciseListDTO){
-            System.out.println(exec.getName());
             intensityLevel += exec.getIntensity();
         }
 

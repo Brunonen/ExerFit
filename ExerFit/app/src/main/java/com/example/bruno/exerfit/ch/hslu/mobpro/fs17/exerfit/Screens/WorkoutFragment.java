@@ -108,7 +108,7 @@ public class WorkoutFragment extends Fragment {
                     if (workoutButton.getText().equals("Finish Workout")) {
                         stopExerciseTimerThread();
                         workoutTimerThread.interrupt();
-                        System.out.println("Congratulations you finished your workout in : " + workoutDuration / 60 + " Minute  " + workoutDuration % 60 + "seconds");
+                        Toast.makeText(getActivity(),"Congratulations you finished your workout in : " + workoutDuration / 60 + " Minute  " + workoutDuration % 60 + "seconds",Toast.LENGTH_SHORT).show();
                     }
                     if (workoutButton.getText().equals("Set")) {
                         if (setsDone == selectedWorkout.getSets() && exerciseCount == (selectedWorkout.getExerciseList().size() - 2)) {
@@ -343,7 +343,7 @@ public class WorkoutFragment extends Fragment {
         exerciseName = exerciseName.toLowerCase();
         exerciseName = exerciseName.replaceAll("\\s+","");
         exerciseName = exerciseName.replaceAll("-", "");
-        System.out.println(exerciseName);
+
         return exerciseName;
     }
 
