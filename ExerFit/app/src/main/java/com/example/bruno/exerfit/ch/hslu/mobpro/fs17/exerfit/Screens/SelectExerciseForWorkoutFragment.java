@@ -63,7 +63,7 @@ public class SelectExerciseForWorkoutFragment extends Fragment implements Adapte
 
 
         exerciseAdapter=new ArrayAdapter<String>(this.getActivity(),
-                android.R.layout.simple_list_item_1,
+                R.layout.listitem_white_text,
                 this.exerciseList);
 
         this.exerciseListView.setAdapter(this.exerciseAdapter);

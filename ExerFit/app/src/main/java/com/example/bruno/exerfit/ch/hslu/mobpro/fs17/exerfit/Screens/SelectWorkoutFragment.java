@@ -48,7 +48,7 @@ public class SelectWorkoutFragment extends Fragment {
 
 
         final ListView listView = (ListView) root.findViewById(R.id.listWorkouts);
-        ArrayAdapter<String> myarrayAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_list_item_1, workoutString);
+        ArrayAdapter<String> myarrayAdapter = new ArrayAdapter<String>(this.getActivity(),  R.layout.listitem_white_text, workoutString);
 
         listView.setAdapter(myarrayAdapter);
 

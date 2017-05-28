@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.Screens.ScheduleWorkoutFragment">
+    tools:context="com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.Screens.ScheduleWorkoutFragment"
+    android:background="@color/colorPrimary">
 
     <RelativeLayout
         android:layout_width="368dp"
@@ -27,7 +28,7 @@
                     android:layout_height="wrap_content"
                     android:text="Schedule Workout"
                     android:textAlignment="center"
-                    android:textColor="@android:color/black"
+                    android:textColor="@android:color/background_light"
                     android:textSize="24sp" />
 
             </LinearLayout>

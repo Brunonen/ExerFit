@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.Screens.PreWorkoutFragment">
+    tools:context="com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.Screens.PreWorkoutFragment"
+    android:background="@color/colorPrimary">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -29,7 +30,8 @@
                     android:text="Workout"
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:layout_editor_absoluteX="147dp" />
+                    tools:layout_editor_absoluteX="147dp"
+                    android:textColor="@android:color/background_light" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -71,7 +73,7 @@
                             android:layout_height="wrap_content"
                             android:id="@+id/textView15"
                             android:layout_weight="1"
-                            android:textColor="@color/colorPrimaryDark"
+                            android:textColor="@android:color/background_light"
                             android:textSize="18sp" />
 
                         <TextView
@@ -80,7 +82,8 @@
                             android:id="@+id/textViewSets"
                             android:layout_weight="0.93"
                             android:textAlignment="viewEnd"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:textColor="@android:color/darker_gray" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -94,7 +97,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/textView21"
-                            android:textColor="@color/colorPrimaryDark"
+                            android:textColor="@android:color/background_light"
                             android:layout_weight="1"
                             android:textSize="18sp" />
 
@@ -104,7 +107,8 @@
                             android:id="@+id/textRestBetweenSets"
                             android:layout_weight="1.19"
                             android:textAlignment="viewEnd"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:textColor="@android:color/darker_gray" />
 
                     </LinearLayout>
 
@@ -121,7 +125,7 @@
                             android:layout_height="wrap_content"
                             android:id="@+id/textView36"
                             android:layout_weight="1"
-                            android:textColor="@color/colorPrimaryDark"
+                            android:textColor="@android:color/background_light"
                             android:textSize="18sp" />
 
                         <TextView
@@ -130,7 +134,8 @@
                             android:id="@+id/textRestBetweenExercises"
                             android:layout_weight="1"
                             android:textAlignment="viewEnd"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:textColor="@android:color/darker_gray" />
 
                     </LinearLayout>
 
@@ -146,7 +151,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/textView29"
-                            android:layout_weight="1" />
+                            android:layout_weight="1"
+                            android:textColor="@android:color/darker_gray" />
 
                         <TextView
                             android:text="Reps"
@@ -154,7 +160,8 @@
                             android:layout_height="wrap_content"
                             android:id="@+id/textView27"
                             android:layout_weight="1"
-                            android:textAlignment="center" />
+                            android:textAlignment="center"
+                            android:textColor="@android:color/darker_gray" />
 
                         <TextView
                             android:text="Intensity"
@@ -162,7 +169,8 @@
                             android:layout_height="wrap_content"
                             android:id="@+id/textView25"
                             android:layout_weight="1"
-                            android:textAlignment="center" />
+                            android:textAlignment="center"
+                            android:textColor="@android:color/darker_gray" />
                     </LinearLayout>
 
                     <ListView

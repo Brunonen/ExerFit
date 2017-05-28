@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.Screens.SelectWorkoutFragment">
+    tools:context="com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.Screens.SelectWorkoutFragment"
+    android:background="@color/colorPrimary">
 
     <RelativeLayout
         android:layout_width="0dp"
@@ -39,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:text="Select Workout"
                     android:textAlignment="center"
-                    android:textColor="@android:color/black"
+                    android:textColor="@android:color/background_light"
                     android:textSize="24sp" />
 
                 <TextView
@@ -49,7 +50,7 @@
                     android:layout_marginTop="10dp"
                     android:text="Select Workout"
                     android:textAlignment="center"
-                    android:textColor="@android:color/black"
+                    android:textColor="@android:color/background_light"
                     android:textSize="18sp" />
 
                 <ListView

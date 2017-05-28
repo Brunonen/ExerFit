@@ -89,7 +89,7 @@ public class CreateWorkoutFragment extends Fragment {
         intensityLevelImage.setImageResource(intensityDrawables.get(intensityLevel));
 
         exerciseAdapter=new ArrayAdapter<String>(this.getActivity(),
-                android.R.layout.simple_list_item_1,
+                R.layout.listitem_white_text,
                 exerciseList);
 
         exerciseListView.setAdapter(exerciseAdapter);
@@ -282,7 +282,7 @@ public class CreateWorkoutFragment extends Fragment {
         }
 
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_spinner_item, restExercisesSpinnerList);
+                R.layout.spinner_item_white, restExercisesSpinnerList);
 
         // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.Screens.ExerciseInfoFragment">
+    tools:context="com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.Screens.ExerciseInfoFragment"
+    android:background="@color/colorPrimary">
 
     <RelativeLayout
         android:layout_width="368dp"
@@ -28,7 +29,7 @@
                     android:layout_weight="1"
                     android:text="Exercise"
                     android:textAlignment="center"
-                    android:textColor="@android:color/black"
+                    android:textColor="@android:color/background_light"
                     android:textSize="24sp" />
 
                 <LinearLayout
@@ -44,7 +45,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_weight="1"
-                        android:text="Description" />
+                        android:text="Description"
+                        android:textColor="@android:color/background_light" />
 
                 </LinearLayout>
 
@@ -64,7 +66,8 @@
                             android:layout_marginTop="10dp"
                             android:layout_weight="20.67"
                             android:lines="6"
-                            android:text="test" />
+                            android:text="test"
+                            android:textColor="@android:color/background_light" />
                     </LinearLayout>
                 </ScrollView>
 
@@ -81,7 +84,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_weight="1"
-                        android:text="Intensity" />
+                        android:text="Intensity"
+                        android:textColor="@android:color/background_light" />
 
                     <TextView
                         android:id="@+id/exerciseIntensitiy"
@@ -89,7 +93,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_weight="1"
-                        android:text="test" />
+                        android:text="test"
+                        android:textColor="@android:color/background_light" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -105,7 +110,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_weight="1"
-                        android:text="Category" />
+                        android:text="Category"
+                        android:textColor="@android:color/background_light" />
 
                     <TextView
                         android:id="@+id/exerciseCategory"
@@ -113,7 +119,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_weight="1"
-                        android:text="test" />
+                        android:text="test"
+                        android:textColor="@android:color/background_light" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -129,7 +136,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_weight="1"
-                        android:text="Reps" />
+                        android:text="Reps"
+                        android:textColor="@android:color/background_light" />
 
                     <TextView
                         android:id="@+id/exerciseReps"
@@ -137,7 +145,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_weight="1"
-                        android:text="test" />
+                        android:text="test"
+                        android:textColor="@android:color/background_light" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -154,7 +163,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_weight="1"
-                        android:text="Weight kg" />
+                        android:text="Weight kg"
+                        android:textColor="@android:color/background_light" />
 
                     <TextView
                         android:id="@+id/exerciseWeightKg"
@@ -162,7 +172,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_weight="1"
-                        android:text="test" />
+                        android:text="test"
+                        android:textColor="@android:color/background_light" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -179,7 +190,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_weight="1"
-                        android:text="Weight lbs" />
+                        android:text="Weight lbs"
+                        android:textColor="@android:color/background_light" />
 
                     <TextView
                         android:id="@+id/exerciseLbs"
@@ -187,7 +199,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_weight="1"
-                        android:text="test" />
+                        android:text="test"
+                        android:textColor="@android:color/background_light" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -204,7 +217,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_weight="1"
-                        android:text="Distance m" />
+                        android:text="Distance m"
+                        android:textColor="@android:color/background_light" />
 
                     <TextView
                         android:id="@+id/exerciseDistance"
@@ -212,7 +226,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_weight="1"
-                        android:text="test" />
+                        android:text="test"
+                        android:textColor="@android:color/background_light" />
                 </LinearLayout>
 
             </LinearLayout>

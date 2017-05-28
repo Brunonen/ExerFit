@@ -67,138 +67,136 @@ public class WorkoutFragment extends Fragment {
         selectedWorkoutString = activity.getSelectedWorkout();
         selectedWorkout = sqlWrapper.getWorkoutByNameWithExercises(selectedWorkoutString);
 
-        imageResources = new DrawableResourceScanner(getActivity());
-        exerciseImage = (ImageView) root.findViewById(R.id.imageView3);
+        if(!selectedWorkout.getName().equals("")) {
+            imageResources = new DrawableResourceScanner(getActivity());
+            exerciseImage = (ImageView) root.findViewById(R.id.imageView3);
 
-        //testView.setImageResource(imageResources.getImageResourceByName("intensitybar_4"));
-        final List<Exercise> exercises = selectedWorkout.getExerciseList();
+            //testView.setImageResource(imageResources.getImageResourceByName("intensitybar_4"));
+            final List<Exercise> exercises = selectedWorkout.getExerciseList();
 
-        setsOutOfSets = (TextView) root.findViewById(R.id.textViewSetsOutOfSets);
-        currentExerciseName = (TextView) root.findViewById(R.id.doWorkoutCurrentExerciseName);
-        currentExerciseExtra = (TextView) root.findViewById(R.id.doWorkoutCurrentExerciseExtra);
-        currentExerciseReps = (TextView) root.findViewById(R.id.doWorkoutCurrentExerciseReps);
-        nextExerciseName = (TextView) root.findViewById(R.id.doWorkoutNextExerciseName);
-        nextExerciseExtra = (TextView) root.findViewById(R.id.doWorkoutNextExerciseExtra);
-        nextExerciseReps = (TextView) root.findViewById(R.id.doWorkoutNextExerciseReps);
-        workoutTimer = (TextView) root.findViewById(R.id.textViewWorkoutTimer);
+            setsOutOfSets = (TextView) root.findViewById(R.id.textViewSetsOutOfSets);
+            currentExerciseName = (TextView) root.findViewById(R.id.doWorkoutCurrentExerciseName);
+            currentExerciseExtra = (TextView) root.findViewById(R.id.doWorkoutCurrentExerciseExtra);
+            currentExerciseReps = (TextView) root.findViewById(R.id.doWorkoutCurrentExerciseReps);
+            nextExerciseName = (TextView) root.findViewById(R.id.doWorkoutNextExerciseName);
+            nextExerciseExtra = (TextView) root.findViewById(R.id.doWorkoutNextExerciseExtra);
+            nextExerciseReps = (TextView) root.findViewById(R.id.doWorkoutNextExerciseReps);
+            workoutTimer = (TextView) root.findViewById(R.id.textViewWorkoutTimer);
 
-        updateSetCount();
-        exerciseCount = 0;
+            updateSetCount();
+            exerciseCount = 0;
 
-        currentExercise = selectedWorkout.getExerciseList().get(exerciseCount);
-        exerciseImage.setImageResource(imageResources.getImageResourceByName(getPictureNameForExercise(currentExercise.getName())));
+            currentExercise = selectedWorkout.getExerciseList().get(exerciseCount);
+            exerciseImage.setImageResource(imageResources.getImageResourceByName(getPictureNameForExercise(currentExercise.getName())));
 
-        if(selectedWorkout.getExerciseList().size() > 1){
-            nextExercise = selectedWorkout.getExerciseList().get((exerciseCount+1) % (selectedWorkout.getExerciseList().size()));
-        }else{
-            if(setsDone != (selectedWorkout.getSets() + 1)){
-                nextExercise = selectedWorkout.getExerciseList().get(exerciseCount);
-            }else{
-                nextExercise = new Exercise();
-            }
-        }
-
-        updateExercises();
-
-        workoutButton = (Button) root.findViewById(R.id.setAndWorkoutButton);
-        workoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                if(workoutButton.getText().equals("Finish Workout")){
-                    stopExerciseTimerThread();
-                    workoutTimerThread.interrupt();
-                    System.out.println("Congratulations you finished your workout in : " + workoutDuration / 60 + " Minute  " + workoutDuration % 60 + "seconds");
+            if (selectedWorkout.getExerciseList().size() > 1) {
+                nextExercise = selectedWorkout.getExerciseList().get((exerciseCount + 1) % (selectedWorkout.getExerciseList().size()));
+            } else {
+                if (setsDone != (selectedWorkout.getSets() + 1)) {
+                    nextExercise = selectedWorkout.getExerciseList().get(exerciseCount);
+                } else {
+                    nextExercise = new Exercise();
                 }
-                if(workoutButton.getText().equals("Set")){
-                    if(setsDone == selectedWorkout.getSets() && exerciseCount == (selectedWorkout.getExerciseList().size() - 2))
-                    {
-                        startRestTimer(selectedWorkout.getRestBetweenExercises());
-                        currentExercise = selectedWorkout.getExerciseList().get(exerciseCount + 1);
+            }
 
-                        exerciseImage.setImageResource(imageResources.getImageResourceByName(getPictureNameForExercise(currentExercise.getName())));
+            updateExercises();
 
-                        nextExercise = new Exercise();
-                        workoutButton.setText("Finish Workout");
-                        updateExercises();
-
-                    }else{
-
-                        exerciseCount++;
-                        exerciseCount = exerciseCount % selectedWorkout.getExerciseList().size();
-
-                        if (exerciseCount == 0) {
-                            setsDone++;
-                            if (setsDone != (selectedWorkout.getSets() + 1)) {
-                                updateSetCount();
-                                startRestTimer(selectedWorkout.getRestBetweenSets());
-                            }
-                        }else{
+            workoutButton = (Button) root.findViewById(R.id.setAndWorkoutButton);
+            workoutButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(final View v) {
+                    if (workoutButton.getText().equals("Finish Workout")) {
+                        stopExerciseTimerThread();
+                        workoutTimerThread.interrupt();
+                        System.out.println("Congratulations you finished your workout in : " + workoutDuration / 60 + " Minute  " + workoutDuration % 60 + "seconds");
+                    }
+                    if (workoutButton.getText().equals("Set")) {
+                        if (setsDone == selectedWorkout.getSets() && exerciseCount == (selectedWorkout.getExerciseList().size() - 2)) {
                             startRestTimer(selectedWorkout.getRestBetweenExercises());
-                        }
+                            currentExercise = selectedWorkout.getExerciseList().get(exerciseCount + 1);
 
-                        if (setsDone != (selectedWorkout.getSets() + 1)) {
-                            currentExercise = selectedWorkout.getExerciseList().get(exerciseCount);
                             exerciseImage.setImageResource(imageResources.getImageResourceByName(getPictureNameForExercise(currentExercise.getName())));
 
-                            if (setsDone <= selectedWorkout.getSets()) {
-                                if (selectedWorkout.getExerciseList().size() > 1) {
-                                    nextExercise = selectedWorkout.getExerciseList().get((exerciseCount + 1) % (selectedWorkout.getExerciseList().size()));
-                                } else {
-                                    if (setsDone <= selectedWorkout.getSets()) {
-                                        nextExercise = selectedWorkout.getExerciseList().get(exerciseCount);
-                                    } else {
-                                        nextExercise = new Exercise();
-                                    }
+                            nextExercise = new Exercise();
+                            workoutButton.setText("Finish Workout");
+                            updateExercises();
+
+                        } else {
+
+                            exerciseCount++;
+                            exerciseCount = exerciseCount % selectedWorkout.getExerciseList().size();
+
+                            if (exerciseCount == 0) {
+                                setsDone++;
+                                if (setsDone != (selectedWorkout.getSets() + 1)) {
+                                    updateSetCount();
+                                    startRestTimer(selectedWorkout.getRestBetweenSets());
                                 }
+                            } else {
+                                startRestTimer(selectedWorkout.getRestBetweenExercises());
+                            }
+
+                            if (setsDone != (selectedWorkout.getSets() + 1)) {
+                                currentExercise = selectedWorkout.getExerciseList().get(exerciseCount);
+                                exerciseImage.setImageResource(imageResources.getImageResourceByName(getPictureNameForExercise(currentExercise.getName())));
+
+                                if (setsDone <= selectedWorkout.getSets()) {
+                                    if (selectedWorkout.getExerciseList().size() > 1) {
+                                        nextExercise = selectedWorkout.getExerciseList().get((exerciseCount + 1) % (selectedWorkout.getExerciseList().size()));
+                                    } else {
+                                        if (setsDone <= selectedWorkout.getSets()) {
+                                            nextExercise = selectedWorkout.getExerciseList().get(exerciseCount);
+                                        } else {
+                                            nextExercise = new Exercise();
+                                        }
+                                    }
+                                } else {
+                                    nextExercise = new Exercise();
+                                }
+
+                                updateExercises();
+                            }
+                        }
+                    }
+
+                    if (workoutButton.getText().equals("Start Workout")) {
+                        exerciseCount = 0;
+                        workoutButton.setText("Set");
+                        currentExercise = selectedWorkout.getExerciseList().get(exerciseCount);
+                        exerciseImage.setImageResource(imageResources.getImageResourceByName(getPictureNameForExercise(currentExercise.getName())));
+
+                        if (selectedWorkout.getExerciseList().size() > 1) {
+                            nextExercise = selectedWorkout.getExerciseList().get((exerciseCount + 1) % (selectedWorkout.getExerciseList().size()));
+                        } else {
+                            if (setsDone != (selectedWorkout.getSets() + 1)) {
+                                nextExercise = selectedWorkout.getExerciseList().get(exerciseCount);
                             } else {
                                 nextExercise = new Exercise();
                             }
-
-                            updateExercises();
                         }
-                    }
-                }
 
-                if(workoutButton.getText().equals("Start Workout")){
-                    exerciseCount = 0;
-                    workoutButton.setText("Set");
-                    currentExercise = selectedWorkout.getExerciseList().get(exerciseCount);
-                    exerciseImage.setImageResource(imageResources.getImageResourceByName(getPictureNameForExercise(currentExercise.getName())));
+                        updateExercises();
+                        startExerciseTimerThread();
 
-                    if(selectedWorkout.getExerciseList().size() > 1){
-                        nextExercise = selectedWorkout.getExerciseList().get((exerciseCount+1) % (selectedWorkout.getExerciseList().size()));
-                    }else{
-                        if(setsDone != (selectedWorkout.getSets() + 1)){
-                            nextExercise = selectedWorkout.getExerciseList().get(exerciseCount);
-                        }else{
-                            nextExercise = new Exercise();
-                        }
-                    }
+                        workoutTimerThread = new Thread() {
+                            public void run() {
+                                try {
+                                    while (true) {
+                                        workoutDuration++;
+                                        sleep(1000);
+                                    }
+                                } catch (InterruptedException e) {
 
-                    updateExercises();
-                    startExerciseTimerThread();
-
-                    workoutTimerThread = new Thread() {
-                        public void run() {
-                            try
-                            {
-                                while(true) {
-                                    workoutDuration++;
-                                    sleep(1000);
                                 }
                             }
-                            catch (InterruptedException e)
-                            {
+                        };
+                        workoutTimerThread.start();
 
-                            }
-                        }
-                    };
-                    workoutTimerThread.start();
+                    }
 
                 }
-
-            }
-        });
+            });
+        }
 
 
         return root;
