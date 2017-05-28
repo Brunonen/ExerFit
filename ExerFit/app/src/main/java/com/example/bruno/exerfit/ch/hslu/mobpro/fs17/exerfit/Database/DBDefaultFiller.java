@@ -65,11 +65,11 @@ public class DBDefaultFiller {
         sqlWrapper.addExercise(new Exercise(0, "Push Ups", "On the Floor Push Up",
                 3, sqlWrapper.getLocationByID(2), sqlWrapper.getCategoryByID(3), 20, 0,0,0));
 
-        sqlWrapper.addExercise(new Exercise(0, "Pull Ups (Home)",
+        sqlWrapper.addExercise(new Exercise(0, "Pull Ups Home",
                 "On the bar, arms Stretched, lift yourself up until your forehead matches the height of the bar.", 5, sqlWrapper.getLocationByID(2),
                 sqlWrapper.getCategoryByID(1), 10, 0 , 0 , 0));
 
-        sqlWrapper.addExercise(new Exercise(0, "Pull Ups (Gym)",
+        sqlWrapper.addExercise(new Exercise(0, "Pull Ups Gym",
                 "On the bar, arms Stretched, lift yourself up until your forehead matches the height of the bar.", 5, sqlWrapper.getLocationByID(3),
                 sqlWrapper.getCategoryByID(1), 10, 0 , 0 , 0));
 
@@ -93,7 +93,7 @@ public class DBDefaultFiller {
                         "\n\n5. Repeat for the recommended amount of repetitions", 7, sqlWrapper.getLocationByID(3),
                 sqlWrapper.getCategoryByID(1), 12, 20, 40, 0));
 
-        sqlWrapper.addExercise(new Exercise(0, "Sit-Up", "1. Lie down on the floor and secure your feet. Your legs should be bent at the knees.\n" +
+        sqlWrapper.addExercise(new Exercise(0, "SitUp", "1. Lie down on the floor and secure your feet. Your legs should be bent at the knees.\n" +
                 "\n2. Place your hands behind or to the side of your head. You will begin with your back on the ground. This will be your starting position.\n" +
                 "\n3. Flex your hips and spine to raise your torso toward your knees.\n" +
                 "\n4. At the top of the contraction your torso should be perpendicular to the ground. Reverse the motion, going only of the way down.\n" +
@@ -111,12 +111,12 @@ public class DBDefaultFiller {
                 "\n4. Complete for the recommended number of repetitions.\n" +
                 "\n5. Tip: To make it easier, have a slight bend at the knees", 4, sqlWrapper.getLocationByID(2), sqlWrapper.getCategoryByID(9), 15, 0,0,0));
 
-        sqlWrapper.addExercise(new Exercise(0, "Jackknife Sit-Up", "1. Lie flat on the floor (or exercise mat) on your back with your arms extended straight back behind your head and your legs extended also. This will be your starting position.\n" +
+        sqlWrapper.addExercise(new Exercise(0, "Jackknife SitUp", "1. Lie flat on the floor (or exercise mat) on your back with your arms extended straight back behind your head and your legs extended also. This will be your starting position.\n" +
                 "\n2. As you exhale, bend at the waist while simultaneously raising your legs and arms to meet in a jackknife position. Tip: The legs should be extended and lifted at approximately a 35-45 degree angle from the floor and the arms should be extended and parallel to your legs. The upper torso should be off the floor.\n" +
                 "\n3. While inhaling, lower your arms and legs back to the starting position.\n" +
                 "\n4. Repeat for the recommended amount of repetitions.", 6, sqlWrapper.getLocationByID(2), sqlWrapper.getCategoryByID(9), 15, 0,0,0));
 
-        sqlWrapper.addExercise(new Exercise(0, "Oblique Crunches - On The Floor", "1. Start out by lying on your right side with your legs lying on top of each other. Make sure your knees are bent a little bit.\n" +
+        sqlWrapper.addExercise(new Exercise(0, "Oblique Crunches", "1. Start out by lying on your right side with your legs lying on top of each other. Make sure your knees are bent a little bit.\n" +
                 "\n2. Place your left hand behind your head.\n" +
                 "\n3. Once you are in this set position, begin by moving your left elbow up as you would perform a normal crunch except this time the main emphasis is on your obliques.\n" +
                 "\n4. Crunch as high as you can, hold the contraction for a second and then slowly drop back down into the starting position.\n" +

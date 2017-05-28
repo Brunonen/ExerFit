@@ -2,6 +2,7 @@ package com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.Screens;
 
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.media.Image;
 import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -11,12 +12,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bruno.exerfit.R;
 import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.Adapters.CustomAdapterExercises;
+import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.Adapters.DrawableResourceScanner;
 import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.DTO.Exercise;
 import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.DTO.Workout;
 import com.example.bruno.exerfit.ch.hslu.mobpro.fs17.exerfit.Database.SQLWrapper;
@@ -44,10 +47,13 @@ public class WorkoutFragment extends Fragment {
     Button workoutButton;
     Thread workoutTimerThread;
     Thread exerciseTimerThread;
+    ImageView exerciseImage;
     int exerciseDuration;
     int workoutDuration;
     int exerciseCount;
     int setsDone = 1;
+    DrawableResourceScanner imageResources;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,6 +67,10 @@ public class WorkoutFragment extends Fragment {
         selectedWorkoutString = activity.getSelectedWorkout();
         selectedWorkout = sqlWrapper.getWorkoutByNameWithExercises(selectedWorkoutString);
 
+        imageResources = new DrawableResourceScanner(getActivity());
+        exerciseImage = (ImageView) root.findViewById(R.id.imageView3);
+
+        //testView.setImageResource(imageResources.getImageResourceByName("intensitybar_4"));
         final List<Exercise> exercises = selectedWorkout.getExerciseList();
 
         setsOutOfSets = (TextView) root.findViewById(R.id.textViewSetsOutOfSets);
@@ -76,6 +86,8 @@ public class WorkoutFragment extends Fragment {
         exerciseCount = 0;
 
         currentExercise = selectedWorkout.getExerciseList().get(exerciseCount);
+        exerciseImage.setImageResource(imageResources.getImageResourceByName(getPictureNameForExercise(currentExercise.getName())));
+
         if(selectedWorkout.getExerciseList().size() > 1){
             nextExercise = selectedWorkout.getExerciseList().get((exerciseCount+1) % (selectedWorkout.getExerciseList().size()));
         }else{
@@ -102,6 +114,9 @@ public class WorkoutFragment extends Fragment {
                     {
                         startRestTimer(selectedWorkout.getRestBetweenExercises());
                         currentExercise = selectedWorkout.getExerciseList().get(exerciseCount + 1);
+
+                        exerciseImage.setImageResource(imageResources.getImageResourceByName(getPictureNameForExercise(currentExercise.getName())));
+
                         nextExercise = new Exercise();
                         workoutButton.setText("Finish Workout");
                         updateExercises();
@@ -123,6 +138,7 @@ public class WorkoutFragment extends Fragment {
 
                         if (setsDone != (selectedWorkout.getSets() + 1)) {
                             currentExercise = selectedWorkout.getExerciseList().get(exerciseCount);
+                            exerciseImage.setImageResource(imageResources.getImageResourceByName(getPictureNameForExercise(currentExercise.getName())));
 
                             if (setsDone <= selectedWorkout.getSets()) {
                                 if (selectedWorkout.getExerciseList().size() > 1) {
@@ -147,6 +163,7 @@ public class WorkoutFragment extends Fragment {
                     exerciseCount = 0;
                     workoutButton.setText("Set");
                     currentExercise = selectedWorkout.getExerciseList().get(exerciseCount);
+                    exerciseImage.setImageResource(imageResources.getImageResourceByName(getPictureNameForExercise(currentExercise.getName())));
 
                     if(selectedWorkout.getExerciseList().size() > 1){
                         nextExercise = selectedWorkout.getExerciseList().get((exerciseCount+1) % (selectedWorkout.getExerciseList().size()));
@@ -264,7 +281,7 @@ public class WorkoutFragment extends Fragment {
             public void onFinish() {
                 workoutButton.setEnabled(true);
                 workoutTimer.setText("00:00");
-                workoutTimer.setTextColor(Color.parseColor("#000000"));
+                workoutTimer.setTextColor(Color.parseColor("#FFFFFF"));
                 startExerciseTimerThread();
             }
         }.start();
@@ -294,6 +311,11 @@ public class WorkoutFragment extends Fragment {
                             exerciseTimerString += "0";
                         }
                         exerciseTimerString += seconds;
+
+                        //break out if fragment is closed
+                        if(getActivity() == null)
+                            return;
+
                         getActivity().runOnUiThread(new Runnable(){
                             @Override
                             public void run(){
@@ -317,6 +339,14 @@ public class WorkoutFragment extends Fragment {
 
     private void stopExerciseTimerThread(){
         exerciseTimerThread.interrupt();
+    }
+
+    private String getPictureNameForExercise(String exerciseName){
+        exerciseName = exerciseName.toLowerCase();
+        exerciseName = exerciseName.replaceAll("\\s+","");
+        exerciseName = exerciseName.replaceAll("-", "");
+        System.out.println(exerciseName);
+        return exerciseName;
     }
 
 }
